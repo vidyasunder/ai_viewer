@@ -1,0 +1,3331 @@
+version: '2.0'
+last_updated: '2024-12-01'
+metadata:
+  total_packs: 32
+  total_classes: 148
+  source: Nearmap API (classes.json + packs.json)
+systems:
+  ai_features_api:
+    name: AI Features API
+    description: Retrieve geospatial AI features for Areas of Interest
+    endpoint_base: https://api.nearmap.com/ai/features/v4
+    documentation: https://developer.nearmap.com/docs/ai-api
+  betterview_api:
+    name: Betterview API
+    description: Property assessment and insurance risk analysis
+    endpoint_base: https://api.nearmap.com/betterview
+    documentation: https://developer.nearmap.com/docs/betterview-api
+  ai_rollup_api:
+    name: AI Rollup API
+    description: Summarized single-row results per request
+    endpoint_base: https://api.nearmap.com/ai/rollup/v1
+    documentation: https://developer.nearmap.com/docs/ai-rollup-api
+ai_packs:
+- id: advanced_roof_cond
+  name: Advanced Roof Cond
+  description: AI Pack containing 10 feature classes
+  class_count: 10
+  classes:
+  - Exposed Underlayment
+  - Exposed Roof Deck
+  - Roof Staining
+  - Missing Asphalt shingles
+  - Roof Debris
+  - Roof Patching
+  - Active Ponding
+  - Worn Shingles
+  - Structural Damage Composite
+  - Roof
+  available_in:
+  - ai_features_api
+- id: building
+  name: Building
+  description: AI Pack containing 3 feature classes
+  class_count: 3
+  classes:
+  - Building
+  - Building (Deprecated)
+  - Roof
+  available_in:
+  - ai_features_api
+- id: building_char
+  name: Building Char
+  description: AI Pack containing 3 feature classes
+  class_count: 3
+  classes:
+  - Building
+  - Building (Deprecated)
+  - Roof
+  available_in:
+  - ai_features_api
+- id: building_structures
+  name: Building Structures
+  description: AI Pack containing 6 feature classes
+  class_count: 6
+  classes:
+  - Raised Car Park
+  - Building with Structural Damage
+  - Building lifecycle
+  - Silo
+  - Grain Bin
+  - Greenhouse
+  available_in:
+  - ai_features_api
+- id: commercial_roof_objects
+  name: Commercial Roof Objects
+  description: AI Pack containing 8 feature classes
+  class_count: 8
+  classes:
+  - Miscellaneous Roof Object
+  - Vent
+  - Skylight
+  - Roof Walkway
+  - HVAC
+  - Duct
+  - Roof Equipment
+  - Pipe
+  available_in:
+  - ai_features_api
+- id: construction
+  name: Construction
+  description: AI Pack containing 6 feature classes
+  class_count: 6
+  classes:
+  - Building Under Construction
+  - Construction Crane
+  - Wheeled Construction Vehicles
+  - Construction Site
+  - Heavy Machinery
+  - Nonwooden Construction Material
+  available_in:
+  - ai_features_api
+- id: damage
+  name: Damage
+  description: AI Pack containing 1 feature classes
+  class_count: 1
+  classes:
+  - Building lifecycle
+  available_in:
+  - ai_features_api
+- id: damage_classifications
+  name: Damage Classifications
+  description: AI Pack containing 10 feature classes
+  class_count: 10
+  classes:
+  - Building with Structural Damage
+  - Building Structural Loss
+  - Vegetation Debris
+  - Building lifecycle
+  - Roof with Temporary Repair
+  - Roof
+  - Building Damage by Tree
+  - Missing Roof Tile or Shingle
+  - Junk and Wreckage
+  - Structural Damage
+  available_in:
+  - ai_features_api
+- id: damage_non_postcat
+  name: Damage Non Postcat
+  description: AI Pack containing 1 feature classes
+  class_count: 1
+  classes:
+  - Building lifecycle
+  available_in:
+  - ai_features_api
+- id: debris
+  name: Debris
+  description: AI Pack containing 3 feature classes
+  class_count: 3
+  classes:
+  - Vegetation Debris
+  - Tyres
+  - Junk and Wreckage
+  available_in:
+  - ai_features_api
+- id: experimental
+  name: Experimental
+  description: AI Pack containing 2 feature classes
+  class_count: 2
+  classes:
+  - Atmospheric Occlusion - Translucent
+  - Atmospheric Occlusion - Opaque
+  available_in:
+  - ai_features_api
+- id: pavement_cond
+  name: Pavement Cond
+  description: AI Pack containing 5 feature classes
+  class_count: 5
+  classes:
+  - Disintegrated Pavement
+  - Damaged Asphalt
+  - Significantly Stained Pavement
+  - Cracked Pavement
+  - Repaired Pavement
+  available_in:
+  - ai_features_api
+- id: pavement_marking
+  name: Pavement Marking
+  description: AI Pack containing 8 feature classes
+  class_count: 8
+  classes:
+  - Letters and Numbers
+  - Linear
+  - Pedestrian Crossing
+  - STOP Marking
+  - Block Character
+  - Block Symbol
+  - Painted Lane
+  - Arrow
+  available_in:
+  - ai_features_api
+- id: pilot1
+  name: Pilot1
+  description: AI Pack containing 9 feature classes
+  class_count: 9
+  classes:
+  - Roof Rusting
+  - Roof with Permanent Repair
+  - Roof with Temporary Repair
+  - Roof
+  - Tile or Shingle Staining
+  - Missing Roof Tile or Shingle
+  - Roof Ponding
+  - Zinc Staining
+  - Structural Damage
+  available_in:
+  - ai_features_api
+- id: poles
+  name: Poles
+  description: AI Pack containing 3 feature classes
+  class_count: 3
+  classes:
+  - Pole
+  - Power Pole
+  - Light Pole Base
+  available_in:
+  - ai_features_api
+- id: pool
+  name: Pool
+  description: AI Pack containing 2 feature classes
+  class_count: 2
+  classes:
+  - Unmaintained Swimming Pool
+  - Swimming Pool
+  available_in:
+  - ai_features_api
+- id: pool_detection
+  name: Pool Detection
+  description: AI Pack containing 1 feature classes
+  class_count: 1
+  classes:
+  - Swimming Pool
+  available_in:
+  - ai_features_api
+- id: postcat
+  name: Postcat
+  description: AI Pack containing 29 feature classes
+  class_count: 29
+  classes:
+  - Unmaintained Swimming Pool
+  - Swimming Pool
+  - Building
+  - Letters and Numbers
+  - Exposed Underlayment
+  - Tarpaulin/Shade Cloth
+  - Exposed Roof Deck
+  - Water Body
+  - Building with Structural Damage
+  - Building Under Construction
+  - Roof Rusting
+  - Building Structural Loss
+  - Atmospheric Occlusion - Translucent
+  - Vegetation Debris
+  - Roof with Permanent Repair
+  - Building lifecycle
+  - Building (Deprecated)
+  - Roof with Temporary Repair
+  - Damaged Asphalt
+  - Roof
+  - Building Damage by Tree
+  - Tile or Shingle Staining
+  - Tyres
+  - Missing Roof Tile or Shingle
+  - Roof Ponding
+  - Zinc Staining
+  - Junk and Wreckage
+  - Structural Damage
+  - Atmospheric Occlusion - Opaque
+  available_in:
+  - ai_features_api
+- id: postcat_others
+  name: Postcat Others
+  description: AI Pack containing 108 feature classes
+  class_count: 108
+  classes:
+  - Raised Car Park
+  - Leaf-off Tree Overhang
+  - Residential Satellite Dish
+  - Bowstring Truss
+  - Clay Tile
+  - Natural (soft)
+  - Junk and Wreckage Overhang
+  - Parapet
+  - Miscellaneous Roof Object
+  - Flat
+  - Wooden Pallet
+  - Linear
+  - Power Line Overhang
+  - Flat (Deprecated)
+  - Trailer
+  - Low Vegetation (0.5m-2m)
+  - Concrete Slab
+  - Vent
+  - Shipping Container
+  - Medium and High Vegetation with Woody Vegetation
+  - Roof Staining
+  - Patio Furniture
+  - Built Up
+  - Solar Panel
+  - Dutch Gable
+  - Road (Driveable Surface)
+  - PVC/TPO
+  - Low Vegetation (0.5m-2m) Overhang
+  - Skylight
+  - Yard Debris
+  - Metal
+  - Ballasted
+  - Pole
+  - Driveway
+  - Gambrel
+  - Shingle
+  - Tile
+  - Power Pole
+  - Gable
+  - Pedestrian Crossing
+  - Roof Walkway
+  - Boat
+  - EPDM
+  - Disintegrated Pavement
+  - Lawn Grass
+  - Construction Crane
+  - HVAC
+  - Trampoline
+  - Wheeled Construction Vehicles
+  - Playground
+  - Mansard
+  - Missing Asphalt shingles
+  - Car
+  - STOP Marking
+  - Mod-Bit
+  - Turret
+  - Roof Debris
+  - Roof Patching
+  - Tree Overhang
+  - Jerkinhead
+  - Block Character
+  - Active Ponding
+  - Asphalt
+  - Worn Shingles
+  - Duct
+  - Fire Pit
+  - Wood Shake
+  - Vegetation Debris Overhang
+  - Construction Site
+  - Block Symbol
+  - Very Low Vegetation (<0.5m)
+  - Painted Lane
+  - Heavy Machinery
+  - Hip
+  - Circular Manhole Covers
+  - Hard Surface
+  - Residential TV Antenna Base
+  - Roof Coating
+  - Silo
+  - Roof Equipment
+  - Structural Damage Composite
+  - Solar Hot Water
+  - Light Pole Base
+  - Power Line
+  - Residential Chimney
+  - Translucent Roofing
+  - Pipe
+  - Tennis Court
+  - Dormer Window
+  - Significantly Stained Pavement
+  - Leaf-off Vegetation
+  - Slate
+  - Wooden Decking
+  - Grain Bin
+  - Natural (hard)
+  - Medium and High Vegetation (>2m)
+  - Cracked Pavement
+  - Quonset
+  - Woody Vegetation
+  - Nonwooden Construction Material
+  - A/C Condenser Unit
+  - Dumpster
+  - Arrow
+  - Natural Pervious Surface
+  - All-in Vegetation
+  - Very Low Vegetation (<0.5m) Overhang
+  - Repaired Pavement
+  - Greenhouse
+  available_in:
+  - ai_features_api
+- id: roof_char
+  name: Roof Char
+  description: AI Pack containing 13 feature classes
+  class_count: 13
+  classes:
+  - Leaf-off Tree Overhang
+  - Flat
+  - Flat (Deprecated)
+  - Dutch Gable
+  - Metal
+  - Shingle
+  - Tile
+  - Gable
+  - Turret
+  - Tree Overhang
+  - Hip
+  - Roof
+  - Dormer Window
+  available_in:
+  - ai_features_api
+- id: roof_cond
+  name: Roof Cond
+  description: AI Pack containing 9 feature classes
+  class_count: 9
+  classes:
+  - Roof Rusting
+  - Roof with Permanent Repair
+  - Roof with Temporary Repair
+  - Roof
+  - Tile or Shingle Staining
+  - Missing Roof Tile or Shingle
+  - Roof Ponding
+  - Zinc Staining
+  - Structural Damage
+  available_in:
+  - ai_features_api
+- id: roof_materials
+  name: Roof Materials
+  description: AI Pack containing 13 feature classes
+  class_count: 13
+  classes:
+  - Clay Tile
+  - Built Up
+  - PVC/TPO
+  - Metal
+  - Ballasted
+  - Shingle
+  - Tile
+  - EPDM
+  - Mod-Bit
+  - Wood Shake
+  - Roof Coating
+  - Roof
+  - Slate
+  available_in:
+  - ai_features_api
+- id: roof_objects
+  name: Roof Objects
+  description: AI Pack containing 8 feature classes
+  class_count: 8
+  classes:
+  - Residential Satellite Dish
+  - Solar Panel
+  - Skylight
+  - Residential TV Antenna Base
+  - Solar Hot Water
+  - Residential Chimney
+  - Translucent Roofing
+  - A/C Condenser Unit
+  available_in:
+  - ai_features_api
+- id: roof_overhang
+  name: Roof Overhang
+  description: AI Pack containing 8 feature classes
+  class_count: 8
+  classes:
+  - Leaf-off Tree Overhang
+  - Junk and Wreckage Overhang
+  - Power Line Overhang
+  - Low Vegetation (0.5m-2m) Overhang
+  - Tree Overhang
+  - Vegetation Debris Overhang
+  - Roof
+  - Very Low Vegetation (<0.5m) Overhang
+  available_in:
+  - ai_features_api
+- id: roof_shape
+  name: Roof Shape
+  description: AI Pack containing 13 feature classes
+  class_count: 13
+  classes:
+  - Bowstring Truss
+  - Parapet
+  - Flat
+  - Dutch Gable
+  - Gambrel
+  - Gable
+  - Mansard
+  - Turret
+  - Jerkinhead
+  - Hip
+  - Roof
+  - Dormer Window
+  - Quonset
+  available_in:
+  - ai_features_api
+- id: solar
+  name: Solar
+  description: AI Pack containing 2 feature classes
+  class_count: 2
+  classes:
+  - Solar Panel
+  - Solar Hot Water
+  available_in:
+  - ai_features_api
+- id: surface_permeability
+  name: Surface Permeability
+  description: AI Pack containing 2 feature classes
+  class_count: 2
+  classes:
+  - Hard Surface
+  - Natural Pervious Surface
+  available_in:
+  - ai_features_api
+- id: surfaces
+  name: Surfaces
+  description: AI Pack containing 8 feature classes
+  class_count: 8
+  classes:
+  - Natural (soft)
+  - Concrete Slab
+  - Water Body
+  - Road (Driveable Surface)
+  - Driveway
+  - Lawn Grass
+  - Asphalt
+  - Natural (hard)
+  available_in:
+  - ai_features_api
+- id: trampoline
+  name: Trampoline
+  description: AI Pack containing 1 feature classes
+  class_count: 1
+  classes:
+  - Trampoline
+  available_in:
+  - ai_features_api
+- id: utilities
+  name: Utilities
+  description: AI Pack containing 6 feature classes
+  class_count: 6
+  classes:
+  - Power Line Overhang
+  - Pole
+  - Power Pole
+  - Circular Manhole Covers
+  - Light Pole Base
+  - Power Line
+  available_in:
+  - ai_features_api
+- id: vegetation
+  name: Vegetation
+  description: AI Pack containing 7 feature classes
+  class_count: 7
+  classes:
+  - Low Vegetation (0.5m-2m)
+  - Medium and High Vegetation with Woody Vegetation
+  - Very Low Vegetation (<0.5m)
+  - Leaf-off Vegetation
+  - Medium and High Vegetation (>2m)
+  - Woody Vegetation
+  - All-in Vegetation
+  available_in:
+  - ai_features_api
+- id: yard_objects
+  name: Yard Objects
+  description: AI Pack containing 14 feature classes
+  class_count: 14
+  classes:
+  - Wooden Pallet
+  - Trailer
+  - Shipping Container
+  - Patio Furniture
+  - Yard Debris
+  - Boat
+  - Playground
+  - Car
+  - Fire Pit
+  - Heavy Machinery
+  - Tennis Court
+  - Wooden Decking
+  - Nonwooden Construction Material
+  - Dumpster
+  available_in:
+  - ai_features_api
+ai_classes:
+- id: raised_car_park
+  class_id: '0'
+  uuid: 00b83b22-a1a5-5268-99fb-62c3c3554d1d
+  name: Raised Car Park
+  description: Raised Car Park
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/0-raised_car_park
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: unmaintained_swimming_pool
+  class_id: '1'
+  uuid: 00f385f3-683b-52d4-953e-02e86f2e89c7
+  name: Unmaintained Swimming Pool
+  description: Unmaintained Swimming Pool
+  pack: pool
+  packs:
+  - pool
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1-unmaintained_swimming_pool
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - pool
+- id: pool_condition
+  class_id: '2'
+  uuid: 027835c1-443c-55aa-940f-26b474cea277
+  name: Pool Condition
+  description: Pool Condition
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/2-pool_condition
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - pool
+  - condition
+- id: swimming_pool
+  class_id: '3'
+  uuid: 0339726f-081e-5a6e-b9a9-42d95c1b5c8a
+  name: Swimming Pool
+  description: Swimming Pool
+  pack: pool
+  packs:
+  - pool
+  - pool_detection
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/3-swimming_pool
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - pool
+- id: leaf_off_tree_overhang
+  class_id: '4'
+  uuid: 042a1d14-4a23-50dc-aabb-befc9645af3b
+  name: Leaf-off Tree Overhang
+  description: Leaf-off Tree Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_overhang
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/4-leaf_off_tree_overhang
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: residential_satellite_dish
+  class_id: '5'
+  uuid: 046ba67f-ca1e-5801-bb1c-bfcafea2d796
+  name: Residential Satellite Dish
+  description: Residential Satellite Dish
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/5-residential_satellite_dish
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - residential
+- id: bowstring_truss
+  class_id: '6'
+  uuid: 09b925d2-df1d-599b-89f1-3ffd39df791e
+  name: Bowstring Truss
+  description: Bowstring Truss
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/6-bowstring_truss
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: clay_tile
+  class_id: '7'
+  uuid: 09ed6bf9-182a-5c79-ae59-f5531181d298
+  name: Clay Tile
+  description: Clay Tile
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/7-clay_tile
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: natural_soft
+  class_id: '8'
+  uuid: 0ad1355f-5dfd-403b-8b8b-b7d8ed95731f
+  name: Natural (soft)
+  description: Natural (soft)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/8-natural_soft
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: junk_and_wreckage_overhang
+  class_id: '9'
+  uuid: 122abf34-b8d7-5c81-b353-69c518f13688
+  name: Junk and Wreckage Overhang
+  description: Junk and Wreckage Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/9-junk_and_wreckage_overhang
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: parapet
+  class_id: '10'
+  uuid: 1234ea84-e334-5c58-88a9-6554be3dfc05
+  name: Parapet
+  description: Parapet
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/10-parapet
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: building
+  class_id: '11'
+  uuid: 1878ccf6-46ec-55a7-a20b-0cf658afb755
+  name: Building
+  description: Building
+  pack: building
+  packs:
+  - building
+  - building_char
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/11-building
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+- id: letters_and_numbers
+  class_id: '12'
+  uuid: 19029055-9962-588e-b7a9-227a82d20869
+  name: Letters and Numbers
+  description: Letters and Numbers
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/12-letters_and_numbers
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: miscellaneous_roof_object
+  class_id: '13'
+  uuid: 1948fc2b-40cb-5107-b095-339b77a6ef57
+  name: Miscellaneous Roof Object
+  description: Miscellaneous Roof Object
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/13-miscellaneous_roof_object
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: building_3d_attributes
+  class_id: '14'
+  uuid: 19e49dad-4228-554e-9f5e-c2e37b2e11d9
+  name: Building 3d attributes
+  description: Building 3d attributes
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/14-building_3d_attributes
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+- id: flat
+  class_id: '15'
+  uuid: 1ab60ef7-e770-5ab6-995e-124676b2be11
+  name: Flat
+  description: Flat
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/15-flat
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: wooden_pallet
+  class_id: '16'
+  uuid: 1ce5ce00-9970-5673-b76e-31713a7012ca
+  name: Wooden Pallet
+  description: Wooden Pallet
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/16-wooden_pallet
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: linear
+  class_id: '17'
+  uuid: 1ea715ed-5166-55e3-a342-96a78e238633
+  name: Linear
+  description: Linear
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/17-linear
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: power_line_overhang
+  class_id: '18'
+  uuid: 1ef797a5-8057-5e8b-a24d-dc7cd8f1fa7b
+  name: Power Line Overhang
+  description: Power Line Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  - utilities
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/18-power_line_overhang
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_types
+  class_id: '19'
+  uuid: 20a58db2-bc02-531d-98f5-451f88ce1fed
+  name: Roof types
+  description: Roof types
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/19-roof_types
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: flat_deprecated
+  class_id: '20'
+  uuid: 224f98d3-b853-542a-8b18-e1e46e3a8200
+  name: Flat (Deprecated)
+  description: Flat (Deprecated)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/20-flat_deprecated
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: exposed_underlayment
+  class_id: '21'
+  uuid: 2322ca41-5d3d-5782-b2b7-1a2ffd0c4b78
+  name: Exposed Underlayment
+  description: Exposed Underlayment
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/21-exposed_underlayment
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: trailer
+  class_id: '22'
+  uuid: 23faf093-7cdc-5c6a-accb-131ac39638b5
+  name: Trailer
+  description: Trailer
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/22-trailer
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: tarpaulin_shade_cloth
+  class_id: '23'
+  uuid: 266bdc07-1c54-5d55-abb1-fab053645071
+  name: Tarpaulin/Shade Cloth
+  description: Tarpaulin/Shade Cloth
+  pack: postcat
+  packs:
+  - postcat
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/23-tarpaulin_shade_cloth
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: low_vegetation_0_5m_2m
+  class_id: '24'
+  uuid: 2780fa70-7713-437c-ad98-656b8a5cc4f2
+  name: Low Vegetation (0.5m-2m)
+  description: Low Vegetation (0.5m-2m)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/24-low_vegetation_0_5m_2m
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: exposed_roof_deck
+  class_id: '25'
+  uuid: 2905ba1c-6d96-58bc-9b1b-5911b3ead023
+  name: Exposed Roof Deck
+  description: Exposed Roof Deck
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/25-exposed_roof_deck
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: concrete_slab
+  class_id: '26'
+  uuid: 290897be-078b-4948-97aa-755289a67a29
+  name: Concrete Slab
+  description: Concrete Slab
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/26-concrete_slab
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: vent
+  class_id: '27'
+  uuid: 2a41d66b-91ef-5b51-8737-a53e8751dff7
+  name: Vent
+  description: Vent
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/27-vent
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: water_body
+  class_id: '28'
+  uuid: 2e0bd9e3-3b67-4990-84dc-1b4812fdd02b
+  name: Water Body
+  description: Water Body
+  pack: postcat
+  packs:
+  - postcat
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/28-water_body
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_condition
+  class_id: '29'
+  uuid: 3065525d-3f14-5b9d-8c4c-077f1ad5c694
+  name: Roof Condition
+  description: Roof Condition
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/29-roof_condition
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+  - condition
+- id: shipping_container
+  class_id: '30'
+  uuid: 3076accc-81e1-5a69-b570-d275b1cf420c
+  name: Shipping Container
+  description: Shipping Container
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/30-shipping_container
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: medium_and_high_vegetation_with_woody_vegetation
+  class_id: '31'
+  uuid: 30fc0c55-2b61-569f-b424-44082987ecb9
+  name: Medium and High Vegetation with Woody Vegetation
+  description: Medium and High Vegetation with Woody Vegetation
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/31-medium_and_high_vegetation_with_woody_vegetation
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: roof_staining
+  class_id: '32'
+  uuid: 319f552f-f4b7-520d-9b16-c8abb394b043
+  name: Roof Staining
+  description: Roof Staining
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/32-roof_staining
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: patio_furniture
+  class_id: '33'
+  uuid: 32d1fa98-85f3-578c-8348-31d966f636a6
+  name: Patio Furniture
+  description: Patio Furniture
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/33-patio_furniture
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: building_with_structural_damage
+  class_id: '34'
+  uuid: 3534a1fc-2e12-51a7-b2dc-1c850bc69fc1
+  name: Building with Structural Damage
+  description: Building with Structural Damage
+  pack: building_structures
+  packs:
+  - building_structures
+  - damage_classifications
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/34-building_with_structural_damage
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+  - condition
+- id: built_up
+  class_id: '35'
+  uuid: 3563c8f1-e81e-52c7-bd56-eaa937010403
+  name: Built Up
+  description: Built Up
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/35-built_up
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: solar_panel
+  class_id: '36'
+  uuid: 3680e1b8-8ae1-5a15-8ec7-820078ef3298
+  name: Solar Panel
+  description: Solar Panel
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  - solar
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/36-solar_panel
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - solar
+- id: dutch_gable
+  class_id: '37'
+  uuid: 3719eb40-d6d1-5071-bbe6-379a551bb65f
+  name: Dutch Gable
+  description: Dutch Gable
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/37-dutch_gable
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: road_driveable_surface
+  class_id: '38'
+  uuid: 372fb6c1-a3ab-5019-ba0f-489ed12079de
+  name: Road (Driveable Surface)
+  description: Road (Driveable Surface)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/38-road_driveable_surface
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: pvc_tpo
+  class_id: '39'
+  uuid: 383930f1-d866-5aa3-9f97-553311f3162d
+  name: PVC/TPO
+  description: PVC/TPO
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/39-pvc_tpo
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: low_vegetation_0_5m_2m_overhang
+  class_id: '40'
+  uuid: 38c4dd92-868c-582a-a4d5-537c88dcec75
+  name: Low Vegetation (0.5m-2m) Overhang
+  description: Low Vegetation (0.5m-2m) Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/40-low_vegetation_0_5m_2m_overhang
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: roof_3d_attributes
+  class_id: '41'
+  uuid: 39072960-5582-52af-9051-4bc8625ff9ba
+  name: Roof 3d attributes
+  description: Roof 3d attributes
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/41-roof_3d_attributes
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: pole_type
+  class_id: '42'
+  uuid: 3de89e9f-5e2f-5715-8b2b-fba35d536507
+  name: Pole type
+  description: Pole type
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/42-pole_type
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: skylight
+  class_id: '43'
+  uuid: 3f5a737e-6d56-538a-ac26-f2934bbbb695
+  name: Skylight
+  description: Skylight
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/43-skylight
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: yard_debris
+  class_id: '44'
+  uuid: 405efaad-4b79-585d-88d8-43ae5fbb6f05
+  name: Yard Debris
+  description: Yard Debris
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/44-yard_debris
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: metal
+  class_id: '45'
+  uuid: 4424186a-0b42-5608-a5a0-d4432695c260
+  name: Metal
+  description: Metal
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/45-metal
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: ballasted
+  class_id: '46'
+  uuid: 4558c4fb-3ddf-549d-b2d2-471384be23d1
+  name: Ballasted
+  description: Ballasted
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/46-ballasted
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: pole
+  class_id: '47'
+  uuid: 46f2f9ce-8c0f-50df-a9e0-4c2026dd3f95
+  name: Pole
+  description: Pole
+  pack: poles
+  packs:
+  - poles
+  - postcat_others
+  - utilities
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/47-pole
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: building_under_construction
+  class_id: '48'
+  uuid: 4794d3ec-0ee7-5def-ad56-f82ff7639bce
+  name: Building Under Construction
+  description: Building Under Construction
+  pack: construction
+  packs:
+  - construction
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/48-building_under_construction
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+- id: driveway
+  class_id: '49'
+  uuid: 4aec3d8a-da20-5fcd-a868-6c19d2772b2e
+  name: Driveway
+  description: Driveway
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/49-driveway
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: gambrel
+  class_id: '50'
+  uuid: 4bb630b9-f9eb-5f95-85b8-f0c6caf16e9b
+  name: Gambrel
+  description: Gambrel
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/50-gambrel
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: shingle
+  class_id: '51'
+  uuid: 4bbf8dbd-cc81-5773-961f-0121101422be
+  name: Shingle
+  description: Shingle
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/51-shingle
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: tile
+  class_id: '52'
+  uuid: 516fdfd5-0be9-59fe-b849-92faef8ef26e
+  name: Tile
+  description: Tile
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/52-tile
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_rusting
+  class_id: '53'
+  uuid: 526496bf-7344-5024-82d7-77ceb671feb4
+  name: Roof Rusting
+  description: Roof Rusting
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/53-roof_rusting
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: power_pole
+  class_id: '54'
+  uuid: 582f5f70-5a21-50b8-a764-5824f8af5c94
+  name: Power Pole
+  description: Power Pole
+  pack: poles
+  packs:
+  - poles
+  - postcat_others
+  - utilities
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/54-power_pole
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: building_structural_loss
+  class_id: '55'
+  uuid: 584188c4-4f77-5724-a782-f13865ab0dbc
+  name: Building Structural Loss
+  description: Building Structural Loss
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/55-building_structural_loss
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+- id: gable
+  class_id: '56'
+  uuid: 59c6e27e-6ef2-5b5c-90e7-31cfca78c0c2
+  name: Gable
+  description: Gable
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/56-gable
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: pedestrian_crossing
+  class_id: '57'
+  uuid: 5a370e2f-e881-5cca-8284-bb0fb683ff14
+  name: Pedestrian Crossing
+  description: Pedestrian Crossing
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/57-pedestrian_crossing
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: atmospheric_occlusion_translucent
+  class_id: '58'
+  uuid: 5b556adb-2160-53f9-9bdd-b2be9ab58f51
+  name: Atmospheric Occlusion - Translucent
+  description: Atmospheric Occlusion - Translucent
+  pack: experimental
+  packs:
+  - experimental
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/58-atmospheric_occlusion_translucent
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_walkway
+  class_id: '59'
+  uuid: 5c50f05d-b158-5cf1-ad0b-e231bde9615c
+  name: Roof Walkway
+  description: Roof Walkway
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/59-roof_walkway
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: boat
+  class_id: '60'
+  uuid: 62a0958e-2139-5688-a776-b88c6049d50e
+  name: Boat
+  description: Boat
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/60-boat
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: epdm
+  class_id: '61'
+  uuid: 64db6ea0-7248-53f5-b6a6-6ed733c5f9b8
+  name: EPDM
+  description: EPDM
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/61-epdm
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: disintegrated_pavement
+  class_id: '62'
+  uuid: 661b420c-afb8-541f-be6a-dc7a7b11de53
+  name: Disintegrated Pavement
+  description: Disintegrated Pavement
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/62-disintegrated_pavement
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: vegetation_debris
+  class_id: '63'
+  uuid: 6832955f-89c6-5cfd-874d-40c22aead943
+  name: Vegetation Debris
+  description: Vegetation Debris
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - debris
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/63-vegetation_debris
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: lawn_grass
+  class_id: '64'
+  uuid: 68dc5061-5842-4a17-8073-e278a91b607d
+  name: Lawn Grass
+  description: Lawn Grass
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/64-lawn_grass
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: construction_crane
+  class_id: '65'
+  uuid: 6a2c2adb-0914-56b3-8a2d-871b803a0dd7
+  name: Construction Crane
+  description: Construction Crane
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/65-construction_crane
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_with_permanent_repair
+  class_id: '66'
+  uuid: 7218eb36-0d36-5b53-a2fe-6e99c7d950bc
+  name: Roof with Permanent Repair
+  description: Roof with Permanent Repair
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/66-roof_with_permanent_repair
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: hvac
+  class_id: '67'
+  uuid: 741b512f-a4a9-5107-a301-a0d1a7094783
+  name: HVAC
+  description: HVAC
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/67-hvac
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: trampoline
+  class_id: '68'
+  uuid: 753621ee-0b9f-515e-9bcf-ea40b96612ab
+  name: Trampoline
+  description: Trampoline
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - trampoline
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/68-trampoline
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: wheeled_construction_vehicles
+  class_id: '69'
+  uuid: 75efd1e7-c253-59f0-b3aa-95f9c17efa93
+  name: Wheeled Construction Vehicles
+  description: Wheeled Construction Vehicles
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/69-wheeled_construction_vehicles
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: playground
+  class_id: '70'
+  uuid: 7741703d-4ce4-54e1-a9ee-05a0a1851137
+  name: Playground
+  description: Playground
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/70-playground
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_overhang_attributes
+  class_id: '71'
+  uuid: 7ab56e15-d5d4-51bb-92bd-69e910e82e56
+  name: Roof overhang attributes
+  description: Roof overhang attributes
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/71-roof_overhang_attributes
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: mansard
+  class_id: '72'
+  uuid: 7eb3b1b6-0d75-5b1f-b41c-b14146ff0c54
+  name: Mansard
+  description: Mansard
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/72-mansard
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: missing_asphalt_shingles
+  class_id: '73'
+  uuid: 82b4547b-b8c0-5e9a-84c2-5c7564b4586c
+  name: Missing Asphalt shingles
+  description: Missing Asphalt shingles
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/73-missing_asphalt_shingles
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: car
+  class_id: '74'
+  uuid: 8337e0e1-e171-5292-89cc-99c0da2a4fe4
+  name: Car
+  description: Car
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/74-car
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: stop_marking
+  class_id: '75'
+  uuid: 8723980d-3c83-5971-92e6-30bfb7452999
+  name: STOP Marking
+  description: STOP Marking
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/75-stop_marking
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: mod_bit
+  class_id: '76'
+  uuid: 87437e20-d9f5-57e1-8b87-4a9c81ec3b65
+  name: Mod-Bit
+  description: Mod-Bit
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/76-mod_bit
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: turret
+  class_id: '77'
+  uuid: 89582082-e5b8-5853-bc94-3a0392cab98a
+  name: Turret
+  description: Turret
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/77-turret
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_material
+  class_id: '78'
+  uuid: 89c7d478-58de-56bd-96d2-e71e27a36905
+  name: Roof material
+  description: Roof material
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/78-roof_material
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: roof_debris
+  class_id: '79'
+  uuid: 8ab218a7-8173-5f1e-a5cb-bb2cd386a73e
+  name: Roof Debris
+  description: Roof Debris
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/79-roof_debris
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: roof_patching
+  class_id: '80'
+  uuid: 8b30838b-af41-5d1d-bdbd-29e682fe3b00
+  name: Roof Patching
+  description: Roof Patching
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/80-roof_patching
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: tree_overhang
+  class_id: '81'
+  uuid: 8e9448bd-4669-5f46-b8f0-840fee25c34c
+  name: Tree Overhang
+  description: Tree Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_overhang
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/81-tree_overhang
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: building_lifecycle
+  class_id: '82'
+  uuid: 91987430-6739-5e16-b92f-b830dd7d52a6
+  name: Building lifecycle
+  description: Building lifecycle
+  pack: building_structures
+  packs:
+  - building_structures
+  - damage
+  - damage_classifications
+  - damage_non_postcat
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/82-building_lifecycle
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+- id: jerkinhead
+  class_id: '83'
+  uuid: 924afbab-aae6-5c26-92e8-9173e4320495
+  name: Jerkinhead
+  description: Jerkinhead
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/83-jerkinhead
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: block_character
+  class_id: '84'
+  uuid: 93f172b5-c544-538f-93dc-8129fe77e0d4
+  name: Block Character
+  description: Block Character
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/84-block_character
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: active_ponding
+  class_id: '85'
+  uuid: 94944057-968c-5df3-828b-285091b7e266
+  name: Active Ponding
+  description: Active Ponding
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/85-active_ponding
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: asphalt
+  class_id: '86'
+  uuid: 97a1f8a8-7cf2-4e81-82b4-753ee225d9ed
+  name: Asphalt
+  description: Asphalt
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/86-asphalt
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: worn_shingles
+  class_id: '87'
+  uuid: 97a6f930-82ae-55f2-b856-635e2250af29
+  name: Worn Shingles
+  description: Worn Shingles
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/87-worn_shingles
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: duct
+  class_id: '88'
+  uuid: 9992c50b-59cb-57dd-90ee-9b5dfac7d3f5
+  name: Duct
+  description: Duct
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/88-duct
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: fire_pit
+  class_id: '89'
+  uuid: 9f5a766e-a1ab-59ff-9b34-f127d6a717ef
+  name: Fire Pit
+  description: Fire Pit
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/89-fire_pit
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: wood_shake
+  class_id: '90'
+  uuid: 9fc4c92e-4405-573e-bce6-102b74ab89a3
+  name: Wood Shake
+  description: Wood Shake
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/90-wood_shake
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: vegetation_debris_overhang
+  class_id: '91'
+  uuid: a0471613-1dfa-5936-960e-f128c083001b
+  name: Vegetation Debris Overhang
+  description: Vegetation Debris Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/91-vegetation_debris_overhang
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: construction_site
+  class_id: '92'
+  uuid: a2a81381-13c6-57dc-a967-af696e45f6c7
+  name: Construction Site
+  description: Construction Site
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/92-construction_site
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: building_deprecated
+  class_id: '93'
+  uuid: a2e4ae39-8a61-5515-9d18-8900aa6e6072
+  name: Building (Deprecated)
+  description: Building (Deprecated)
+  pack: building
+  packs:
+  - building
+  - building_char
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/93-building_deprecated
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+- id: block_symbol
+  class_id: '94'
+  uuid: a4d3705f-1a20-5322-8fc6-687c01cebdc8
+  name: Block Symbol
+  description: Block Symbol
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/94-block_symbol
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: very_low_vegetation_0_5m
+  class_id: '95'
+  uuid: a7d921b7-393c-4121-b317-e9cda3e4c19b
+  name: Very Low Vegetation (<0.5m)
+  description: Very Low Vegetation (<0.5m)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/95-very_low_vegetation_0_5m
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: painted_lane
+  class_id: '96'
+  uuid: aaf425d3-74b3-5efe-8e50-dc3f902ed431
+  name: Painted Lane
+  description: Painted Lane
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/96-painted_lane
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: heavy_machinery
+  class_id: '97'
+  uuid: ab2df18b-cdda-5be9-b5ee-a2dac5b4d9a1
+  name: Heavy Machinery
+  description: Heavy Machinery
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/97-heavy_machinery
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_with_temporary_repair
+  class_id: '98'
+  uuid: abb1f304-ce01-527b-b799-cbfd07551b2c
+  name: Roof with Temporary Repair
+  description: Roof with Temporary Repair
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/98-roof_with_temporary_repair
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: hip
+  class_id: '99'
+  uuid: ac0a5f75-d8aa-554c-8a43-cee9684ef9e9
+  name: Hip
+  description: Hip
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/99-hip
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: circular_manhole_covers
+  class_id: '100'
+  uuid: b084f3a7-6bb5-580c-849a-0467e3919a7d
+  name: Circular Manhole Covers
+  description: Circular Manhole Covers
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - utilities
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/100-circular_manhole_covers
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: hard_surface
+  class_id: '101'
+  uuid: b0abb555-7936-5829-acee-c33f40e00cf4
+  name: Hard Surface
+  description: Hard Surface
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surface_permeability
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/101-hard_surface
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: damaged_asphalt
+  class_id: '102'
+  uuid: b1c2f04b-78ca-5dbc-bf9b-74291c1e39f6
+  name: Damaged Asphalt
+  description: Damaged Asphalt
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/102-damaged_asphalt
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - condition
+- id: residential_tv_antenna_base
+  class_id: '103'
+  uuid: b22e2f48-de58-53be-84ae-d56181f737fe
+  name: Residential TV Antenna Base
+  description: Residential TV Antenna Base
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/103-residential_tv_antenna_base
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - residential
+- id: roof_coating
+  class_id: '104'
+  uuid: b2573072-b3a5-5f7c-973f-06b7649665ff
+  name: Roof Coating
+  description: Roof Coating
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/104-roof_coating
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: silo
+  class_id: '105'
+  uuid: b64ecdb0-6810-5c70-835c-9e2a5f2a4d84
+  name: Silo
+  description: Silo
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/105-silo
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_equipment
+  class_id: '106'
+  uuid: ba7c0d7d-d355-56f0-ab69-2a96720bf7b7
+  name: Roof Equipment
+  description: Roof Equipment
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/106-roof_equipment
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: structural_damage_composite
+  class_id: '107'
+  uuid: c0224852-4310-57dd-95fe-42bff1c0a3f0
+  name: Structural Damage Composite
+  description: Structural Damage Composite
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/107-structural_damage_composite
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - condition
+- id: roof
+  class_id: '108'
+  uuid: c08255a4-ba9f-562b-932c-ff76f2faeeeb
+  name: Roof
+  description: Roof
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - building
+  - building_char
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_char
+  - roof_cond
+  - roof_materials
+  - roof_overhang
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/108-roof
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: solar_hot_water
+  class_id: '109'
+  uuid: c1143023-135b-54fd-9a07-8de0ff55de51
+  name: Solar Hot Water
+  description: Solar Hot Water
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  - solar
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/109-solar_hot_water
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - solar
+- id: light_pole_base
+  class_id: '110'
+  uuid: c16cd5a7-bddf-5457-93d5-d70bb6d971a7
+  name: Light Pole Base
+  description: Light Pole Base
+  pack: poles
+  packs:
+  - poles
+  - postcat_others
+  - utilities
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/110-light_pole_base
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: power_line
+  class_id: '111'
+  uuid: c2d289f4-be5a-50f7-a186-12a065e5178a
+  name: Power Line
+  description: Power Line
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - utilities
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/111-power_line
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: building_damage_by_tree
+  class_id: '112'
+  uuid: c46e75a6-7b3c-5910-9f3f-742dd668025b
+  name: Building Damage by Tree
+  description: Building Damage by Tree
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/112-building_damage_by_tree
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+  - vegetation
+  - condition
+- id: residential_chimney
+  class_id: '113'
+  uuid: c54e38d6-866f-592c-bb9c-c68044ed43c9
+  name: Residential Chimney
+  description: Residential Chimney
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/113-residential_chimney
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - residential
+- id: translucent_roofing
+  class_id: '114'
+  uuid: c67497c5-76af-5cd2-a5c7-473cca0f6597
+  name: Translucent Roofing
+  description: Translucent Roofing
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/114-translucent_roofing
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: pipe
+  class_id: '115'
+  uuid: c81ff488-2693-5812-89d6-1b9e7950b308
+  name: Pipe
+  description: Pipe
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/115-pipe
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: tennis_court
+  class_id: '116'
+  uuid: ca05232f-96db-5aa7-a3a0-f5aa4be12153
+  name: Tennis Court
+  description: Tennis Court
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/116-tennis_court
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: dormer_window
+  class_id: '117'
+  uuid: cd15ea0b-a0f6-58b6-9a63-480654ff506c
+  name: Dormer Window
+  description: Dormer Window
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/117-dormer_window
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: significantly_stained_pavement
+  class_id: '118'
+  uuid: cd2e38aa-fc98-5bd4-b83e-0f614b48e334
+  name: Significantly Stained Pavement
+  description: Significantly Stained Pavement
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/118-significantly_stained_pavement
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: leaf_off_vegetation
+  class_id: '119'
+  uuid: cd47dfd1-2c24-543c-89fd-7677b2cc100b
+  name: Leaf-off Vegetation
+  description: Leaf-off Vegetation
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/119-leaf_off_vegetation
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: slate
+  class_id: '120'
+  uuid: cdc50dcc-e522-5361-8f02-4e30673311bb
+  name: Slate
+  description: Slate
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/120-slate
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: tile_or_shingle_staining
+  class_id: '121'
+  uuid: cfa8951a-4c29-54de-ae98-e5f804c305e3
+  name: Tile or Shingle Staining
+  description: Tile or Shingle Staining
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/121-tile_or_shingle_staining
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: wooden_decking
+  class_id: '122'
+  uuid: d24c3212-e089-5b0b-a5f8-58d7e1da0a0d
+  name: Wooden Decking
+  description: Wooden Decking
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/122-wooden_decking
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: tyres
+  class_id: '123'
+  uuid: d997550f-5630-5d07-aa07-13182e7caae5
+  name: Tyres
+  description: Tyres
+  pack: debris
+  packs:
+  - debris
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/123-tyres
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: grain_bin
+  class_id: '124'
+  uuid: dc834996-1c8f-5d0a-a215-2fc0bf9260a5
+  name: Grain Bin
+  description: Grain Bin
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/124-grain_bin
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: natural_hard
+  class_id: '125'
+  uuid: dd1e6ef5-8227-492a-b02f-adcf660d06d0
+  name: Natural (hard)
+  description: Natural (hard)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/125-natural_hard
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: missing_roof_tile_or_shingle
+  class_id: '126'
+  uuid: dec855e2-ae6f-56b5-9cbb-f9967ff8ca12
+  name: Missing Roof Tile or Shingle
+  description: Missing Roof Tile or Shingle
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/126-missing_roof_tile_or_shingle
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: medium_and_high_vegetation_2m
+  class_id: '127'
+  uuid: dfd8181b-80c9-4234-9d05-0eef927e3aca
+  name: Medium and High Vegetation (>2m)
+  description: Medium and High Vegetation (>2m)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/127-medium_and_high_vegetation_2m
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: cracked_pavement
+  class_id: '128'
+  uuid: e125a77b-3790-578a-be5a-9b7223030513
+  name: Cracked Pavement
+  description: Cracked Pavement
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/128-cracked_pavement
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: quonset
+  class_id: '129'
+  uuid: e92bc8a2-9fa3-5094-b3b6-2881d94642ab
+  name: Quonset
+  description: Quonset
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/129-quonset
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: woody_vegetation
+  class_id: '130'
+  uuid: eaa83113-44b3-505e-9515-ba8a8d403dd4
+  name: Woody Vegetation
+  description: Woody Vegetation
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/130-woody_vegetation
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: nonwooden_construction_material
+  class_id: '131'
+  uuid: ec5542e4-83a7-53c4-ae2f-dc5b534cc1ba
+  name: Nonwooden Construction Material
+  description: Nonwooden Construction Material
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/131-nonwooden_construction_material
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: a_c_condenser_unit
+  class_id: '132'
+  uuid: ed1ea29d-cd2c-55a9-8737-13018a9bb741
+  name: A/C Condenser Unit
+  description: A/C Condenser Unit
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/132-a_c_condenser_unit
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: dumpster
+  class_id: '133'
+  uuid: ef761921-727e-50bb-9f2a-988becf09796
+  name: Dumpster
+  description: Dumpster
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/133-dumpster
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: low_confidence_roof_condition
+  class_id: '134'
+  uuid: f14c1581-66e6-5cf1-a051-2298ad165d28
+  name: Low confidence roof condition
+  description: Low confidence roof condition
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/134-low_confidence_roof_condition
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+  - condition
+- id: arrow
+  class_id: '135'
+  uuid: f2c37940-5fc2-5d2c-94fa-d131f6e200a2
+  name: Arrow
+  description: Arrow
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/135-arrow
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: roof_ponding
+  class_id: '136'
+  uuid: f41e02b0-adc0-5b46-ac95-8c59aa9fe317
+  name: Roof Ponding
+  description: Roof Ponding
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/136-roof_ponding
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - roof
+- id: natural_pervious_surface
+  class_id: '137'
+  uuid: f4b78dad-c2c0-5236-8eb1-3266ed468604
+  name: Natural Pervious Surface
+  description: Natural Pervious Surface
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surface_permeability
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/137-natural_pervious_surface
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: all_in_vegetation
+  class_id: '138'
+  uuid: f5070c73-66ca-5cb1-9744-2629a27533ce
+  name: All-in Vegetation
+  description: All-in Vegetation
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/138-all_in_vegetation
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: zinc_staining
+  class_id: '139'
+  uuid: f55813f9-a39d-571d-9688-8d3f76aa35b9
+  name: Zinc Staining
+  description: Zinc Staining
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/139-zinc_staining
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: building_pitch
+  class_id: '140'
+  uuid: f5efb75e-22bb-5b53-93f1-892501868627
+  name: Building pitch
+  description: Building pitch
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/140-building_pitch
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - building
+- id: ground_height
+  class_id: '141'
+  uuid: f7628feb-6d70-50ee-bbfd-053b4e685e8f
+  name: Ground height
+  description: Ground height
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/141-ground_height
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: junk_and_wreckage
+  class_id: '142'
+  uuid: f8abc8e3-6af3-5a1d-9a8e-1793419455bb
+  name: Junk and Wreckage
+  description: Junk and Wreckage
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - debris
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/142-junk_and_wreckage
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: structural_damage
+  class_id: '143'
+  uuid: f907e625-26b3-59db-a806-d41f62ce1f1b
+  name: Structural Damage
+  description: Structural Damage
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/143-structural_damage
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - condition
+- id: very_low_vegetation_0_5m_overhang
+  class_id: '144'
+  uuid: fcbb15ea-93e5-587c-8941-246353817741
+  name: Very Low Vegetation (<0.5m) Overhang
+  description: Very Low Vegetation (<0.5m) Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/144-very_low_vegetation_0_5m_overhang
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags:
+  - vegetation
+- id: repaired_pavement
+  class_id: '145'
+  uuid: fd050fb5-8008-57ab-a3fc-fb09c4aa7b68
+  name: Repaired Pavement
+  description: Repaired Pavement
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/145-repaired_pavement
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: atmospheric_occlusion_opaque
+  class_id: '146'
+  uuid: fd149017-c3a1-54a2-b6e4-88f5d5ab9c59
+  name: Atmospheric Occlusion - Opaque
+  description: Atmospheric Occlusion - Opaque
+  pack: experimental
+  packs:
+  - experimental
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/146-atmospheric_occlusion_opaque
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
+- id: greenhouse
+  class_id: '147'
+  uuid: fd6754fb-11eb-5fb3-9971-23a129099970
+  name: Greenhouse
+  description: Greenhouse
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/147-greenhouse
+  attributes:
+  - area_sqm
+  - confidence
+  - geometry
+  available_in:
+  - ai_features_api
+  tags: []
