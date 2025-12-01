@@ -1,0 +1,5022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearmap AI Features & Layers Reference</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABjklEQVR4nO2XO07DQBCGv7UdJ+QBCUVKKCgpKJAQHRJSuABX4AIcgANwAa5ARUGHRIFEQUFBBQgJCVI8JMd2nLU9FhHYG+exTkSRkUZa7+7O/rOzO+OFf14ggBpQB+pAAPQdIgDqQA1wAbeBLbAClIA8kAWSQBJIAXlgCSwBO8AW2AD3/0oA2AY2gSWgBOS+Bc4AKSA9Aa4DK8AmUAaSwwJngRKw/ovwOlABckAcGPgWKAIr/wivAqvAApABYpYCBaAyRvg6sA4UANeywCKwNmb4xpjhrrXAArA+gfA6UA3WAtqzM0F4FVgHXKsCRWB1wvA14AlwrAnMA6t/EF4D5qwIzANP/yC8BsxZEXgE7icUfg/MWhGYAx4mFF4DZqwIzAAPE4S/ADNWBGaAhwnCa8D0yAkC08DDhOEvwD0wZUVgCrifsB9qwD0wOSqBSeBuwvAX4A6YsCIwAdxNGP4K3AETB0ZgAridMLwG3AHjVgTGgdsJw1+BW2DsWAFgDLidMPwNuAVGxwrY4F+XD1oj4Vbd08BKAAAAAElFTkSuQmCC">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --nearmap-blue: #0047BB;
+      --nearmap-blue-dark: #003380;
+      --nearmap-blue-light: #E6F0FF;
+      --nearmap-accent: #00A3E0;
+      --text-primary: #1A1A1A;
+      --text-secondary: #666666;
+      --text-muted: #999999;
+      --border-color: #E0E0E0;
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #F8F9FA;
+      --success: #28A745;
+      --pack-green: #E8F5E9;
+      --pack-green-text: #2E7D32;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .app-header {
+      background: var(--bg-primary);
+      border-bottom: 3px solid var(--nearmap-blue);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 36px;
+    }
+
+    .app-title h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--nearmap-blue);
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+
+    .app-title .subtitle {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--bg-secondary);
+      padding: 0.25rem;
+      border-radius: 8px;
+    }
+
+    .view-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    .view-btn.active {
+      background: var(--nearmap-blue);
+      color: white;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Search Section */
+    .search-section {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      margin-bottom: 1rem;
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: var(--nearmap-blue);
+      box-shadow: 0 0 0 3px var(--nearmap-blue-light);
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .filter-select {
+      width: 100%;
+      padding: 0.625rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.875rem;
+      background: var(--bg-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--nearmap-blue);
+    }
+
+    .results-count {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .results-count strong {
+      color: var(--nearmap-blue);
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+
+    .clear-filters {
+      padding: 0.375rem 0.875rem;
+      background: transparent;
+      color: var(--nearmap-blue);
+      border: 1px solid var(--nearmap-blue);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .clear-filters:hover {
+      background: var(--nearmap-blue-light);
+    }
+
+    /* Results */
+    .results {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Class Card */
+    .class-card {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      border-left: 4px solid var(--nearmap-blue);
+    }
+
+    .class-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .class-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .class-title-group {
+      flex: 1;
+    }
+
+    .class-title {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: #08112e;
+      margin-bottom: 0.5rem;
+    }
+
+    .class-id {
+      display: inline-block;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.875rem;
+      padding: 0.25rem 0.625rem;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      margin-right: 0.5rem;
+    }
+
+    .class-description {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .class-metadata {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .metadata-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .metadata-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .metadata-value {
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .pack-badge {
+      display: inline-block;
+      padding: 0.375rem 0.875rem;
+      background: var(--pack-green);
+      color: var(--pack-green-text);
+      border-radius: 20px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pack-badge:hover {
+      background: #d4edda;
+      transform: translateY(-1px);
+    }
+
+    .api-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .api-badge {
+      padding: 0.375rem 0.75rem;
+      background: var(--nearmap-blue-light);
+      color: var(--nearmap-blue);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.625rem;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .attributes-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .section-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .attributes-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .attribute {
+      padding: 0.375rem 0.75rem;
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--nearmap-blue);
+      border-radius: 4px;
+      font-size: 0.8125rem;
+      font-family: 'Monaco', 'Menlo', monospace;
+      color: var(--text-primary);
+    }
+
+    /* Pack Card */
+    .pack-card {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      border-left: 4px solid var(--pack-green-text);
+    }
+
+    .pack-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .pack-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #08112e;
+      margin-bottom: 0.75rem;
+    }
+
+    .pack-classes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .class-chip {
+      padding: 0.375rem 0.75rem;
+      background: var(--nearmap-blue-light);
+      color: var(--nearmap-blue);
+      border-radius: 20px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .class-chip:hover {
+      background: var(--nearmap-blue);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    /* Links */
+    .help-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      color: var(--nearmap-blue);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-top: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .help-link:hover {
+      color: var(--nearmap-blue-dark);
+      text-decoration: underline;
+    }
+
+    /* Empty State */
+    .empty-state {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    /* Loading */
+    .loading {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--nearmap-blue-light);
+      border-top-color: var(--nearmap-blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Utilities */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="app-title">
+          <h1>AI Features & Layers</h1>
+          <span class="subtitle">Search for AI packs and layers using this Viewer and explore the documentation for more details. Data used by AI Features API, Betterview API, and AI Rollup API.</span>
+        </div>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" data-view="packs">AI Packs</button>
+        <button class="view-btn" data-view="classes">AI Layers</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Loading -->
+    <div id="loading" class="loading">
+      <div class="loading-spinner"></div>
+      <p style="color: var(--text-secondary); font-weight: 600;">Loading AI Features and Layers...</p>
+    </div>
+
+    <!-- Main Content -->
+    <div id="content" class="hidden">
+      <!-- Search Section -->
+      <div class="search-section">
+        <input 
+          type="text" 
+          id="searchBox" 
+          placeholder="Search AI layers, packs, attributes..."
+          class="search-box"
+        />
+        
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label>Filter by AI Layer</label>
+            <select id="layerFilter" class="filter-select">
+              <option value="">All AI Layers</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Filter by AI Pack</label>
+            <select id="packFilter" class="filter-select">
+              <option value="">All AI Packs</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label>Filter by Tag</label>
+            <select id="tagFilter" class="filter-select">
+              <option value="">All Tags</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-count">
+          <span id="countDisplay">
+            <strong id="resultCount">0</strong> <span id="resultType">packs</span> found
+            <span id="packCount" class="hidden"> | <strong id="packCountNum">0</strong> packs</span>
+          </span>
+          <button id="clearFilters" class="clear-filters">Clear Filters</button>
+        </div>
+
+        <div id="glossaryLink" style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.75rem; display: none;">
+          <a href="https://help.nearmap.com/kb/articles/160-about-ai-layers" target="_blank" style="color: var(--nearmap-blue); text-decoration: none; font-weight: 600;">
+            📖 View complete AI Layer glossary →
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation Breadcrumb -->
+      <div id="breadcrumb" class="hidden" style="background: var(--nearmap-blue-light); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem;">
+          <span style="color: var(--text-secondary);">Viewing:</span>
+          <span id="breadcrumbText" style="font-weight: 700; color: var(--nearmap-blue);"></span>
+        </div>
+        <button id="backButton" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+          ← Back to All <span id="backToView">Packs</span>
+        </button>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="results"></div>
+    </div>
+  </div>
+
+  <script>
+    let schema = null;
+    let currentView = 'packs';
+    let previousState = {
+      view: 'packs',
+      searchTerm: '',
+      layerFilter: '',
+      packFilter: '',
+      tagFilter: ''
+    };
+
+    // EMBEDDED SCHEMA - Replace with your ai-features-schema.yaml content
+    const EMBEDDED_SCHEMA = `version: '4.0'
+last_updated: '2024-12-01'
+metadata:
+  total_packs: 32
+  total_classes: 148
+  total_fields_mapped: 34
+  source: Classes.json + packs.json + ai-layers-pack-data.ts + data-dictionary-schema.yaml
+systems:
+  betterview_warehouse:
+    name: Betterview External Data Warehouse
+    type: data_warehouse
+    connection: sql
+    docs: https://docs.betterview.com/warehouse
+    description: For access, please contact a sales rep
+    tables:
+    - property
+    - property_building
+    - property_detection
+    - defensible_space
+    - property_flag
+    - property_insurance
+    - property_order
+    - property_user_view
+  nearmap_features_api:
+    name: Nearmap Features API (AI Packs)
+    type: api
+    base_url: https://api.nearmap.com/api/features/v4/features.json
+    docs: https://developer.nearmap.com/reference/features
+  property_now:
+    name: PropertyNow
+    type: api
+    base_url: https://api.betterview.com/api/properties/now
+    docs: https://developer.nearmap.com/reference/postpropertynowwithaddress
+  property_insights:
+    name: PropertyInsights
+    type: api
+    base_url: https://api.betterview.com/api/properties
+    docs: https://developer.nearmap.com/docs/integrating-with-betterview
+components:
+  data_types:
+    boolean:
+      type: boolean
+      format: true/false
+    integer:
+      type: integer
+    float:
+      type: float
+    string:
+      type: string
+    date:
+      type: string
+      format: date
+    datetime:
+      type: datetime
+    bigint:
+      type: bigint
+    geometry:
+      type: geometry
+  units:
+    area_m2:
+      unit: square meters
+      abbr: sq. m
+      precision: 1
+    area_ft2:
+      unit: square feet
+      abbr: sq. ft
+      precision: 0
+    length_m:
+      unit: meters
+      abbr: m
+      precision: 1
+    length_ft:
+      unit: feet
+      abbr: ft
+      precision: 0
+    degrees:
+      unit: degrees
+      abbr: deg
+    ratio:
+      unit: ratio
+      range:
+      - 0
+      - 1
+    score_0_100:
+      unit: score
+      range:
+      - 0
+      - 100
+    score_1_5:
+      unit: score
+      range:
+      - 1
+      - 5
+    score_1_3:
+      unit: score
+      range:
+      - 1
+      - 3
+ai_packs:
+- id: advanced_roof_cond
+  name: Advanced Roof Cond
+  description: AI Pack containing 10 feature classes
+  help_url: null
+  class_count: 10
+  classes:
+  - Exposed Underlayment
+  - Exposed Roof Deck
+  - Roof Staining
+  - Missing Asphalt shingles
+  - Roof Debris
+  - Roof Patching
+  - Active Ponding
+  - Worn Shingles
+  - Structural Damage Composite
+  - Roof
+  available_in:
+  - ai_features_api
+  fields:
+  - &id015
+    id: exposed_roof_deck_present
+    name: Exposed Roof Deck Present
+    description: Indicates if exposed roof decking is detected
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - roof
+    - condition
+    - damage
+    class: exposed_roof_deck
+    ai_packs:
+    - advanced_roof_cond
+    locations:
+    - system: nearmap_features_api
+      field: exposed roof deck present
+    - system: property_insights
+      category: Roof Conditions
+      variable: Exposed Roof Deck
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Exposed Roof Deck'
+  - &id026
+    id: roof_debris_present
+    name: Roof Debris Present
+    description: Indicates if roof debris is detected
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - roof
+    - condition
+    - debris
+    - wildfire
+    class: roof_debris
+    ai_packs:
+    - advanced_roof_cond
+    locations:
+    - system: nearmap_features_api
+      field: roof debris present
+    - system: property_insights
+      category: Roof Conditions
+      variable: Roof Debris
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Roof Debris'
+  - &id017
+    id: roof_staining_present
+    name: Roof Staining Present
+    description: Indicates if roof staining is detected
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - roof
+    - condition
+    - staining
+    class: roof_staining
+    ai_packs:
+    - advanced_roof_cond
+    locations:
+    - system: nearmap_features_api
+      field: roof staining present
+    - system: property_insights
+      category: Roof Conditions
+      variable: Roof staining
+  - &id027
+    id: worn_shingles_present
+    name: Worn Shingles Present
+    description: Indicates if worn/weathered shingles are detected
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - roof
+    - condition
+    - wear
+    class: worn_shingles
+    ai_packs:
+    - advanced_roof_cond
+    locations:
+    - system: nearmap_features_api
+      field: worn shingles present
+    - system: property_insights
+      category: Roof Conditions
+      variable: Worn Shingles
+- id: building
+  name: Building
+  description: AI Pack containing 3 feature classes
+  help_url: null
+  class_count: 3
+  classes:
+  - Building
+  - Building (Deprecated)
+  - Roof
+  available_in:
+  - ai_features_api
+  fields:
+  - &id008
+    id: building_footprint
+    name: Building Footprint
+    description: Polygon boundary representing the perimeter of a building structure
+    data_type: geometry
+    tags:
+    - building
+    - structure
+    - footprint
+    - geometry
+    aggregation_level: building
+    ai_packs:
+    - building
+    class: building
+    locations:
+    - system: nearmap_features_api
+      field: building footprint
+  - &id009
+    id: building_area
+    name: Building Area
+    description: Total area of the building footprint
+    data_type: float
+    unit: area_m2
+    tags:
+    - building
+    - area
+    - measurement
+    aggregation_level: building
+    ai_packs:
+    - building
+    class: building
+    locations:
+    - system: nearmap_features_api
+      field: area (sq. m) of building
+  - &id011
+    id: roof_footprint
+    name: Roof Footprint
+    description: Polygon boundary representing the roof area
+    data_type: geometry
+    tags:
+    - roof
+    - geometry
+    - footprint
+    aggregation_level: building
+    ai_packs:
+    - building
+    class: roof
+    locations:
+    - system: nearmap_features_api
+      field: roof footprint
+  - &id012
+    id: roof_area
+    name: Roof Area
+    description: Total roof surface area
+    data_type: float
+    unit: area_m2
+    tags:
+    - roof
+    - area
+    - measurement
+    aggregation_level: building
+    ai_packs:
+    - building
+    class: roof
+    locations:
+    - system: nearmap_features_api
+      field: area (sq. m) of roof
+- id: building_char
+  name: Building Char
+  description: AI Pack containing 3 feature classes
+  help_url: null
+  class_count: 3
+  classes:
+  - Building
+  - Building (Deprecated)
+  - Roof
+  available_in:
+  - ai_features_api
+  fields:
+  - &id010
+    id: building_height_peak
+    name: Building Height (Peak)
+    description: Height of the building from the ground to the peak of the roof
+    data_type: float
+    unit: length_m
+    tags:
+    - building
+    - height
+    - measurement
+    - vertical
+    aggregation_level: building
+    ai_packs:
+    - building_char
+    class: building
+    locations:
+    - system: nearmap_features_api
+      field: peak height (m) of building
+- id: building_structures
+  name: Building Structures
+  description: The Building Structures pack comprises a wide array of classes designed to assist in identifying and comprehending
+    details pertaining to various structures.
+  help_url: https://help.nearmap.com/kb/articles/1639-ai-pack-building-structures
+  class_count: 6
+  classes:
+  - Raised Car Park
+  - Building with Structural Damage
+  - Building lifecycle
+  - Silo
+  - Grain Bin
+  - Greenhouse
+  available_in:
+  - ai_features_api
+  fields: []
+- id: commercial_roof_objects
+  name: Commercial Roof Objects
+  description: Commercial Roof Objects captures a range of objects and protrusions on top of a roof, that do not fall within
+    other specific packs such as Solar Panels.
+  help_url: https://help.nearmap.com/kb/articles/885-ai-pack-commercial-roof-objects
+  class_count: 8
+  classes:
+  - Miscellaneous Roof Object
+  - Vent
+  - Skylight
+  - Roof Walkway
+  - HVAC
+  - Duct
+  - Roof Equipment
+  - Pipe
+  available_in:
+  - ai_features_api
+  fields: []
+- id: construction
+  name: Construction
+  description: AI Pack containing 6 feature classes
+  help_url: null
+  class_count: 6
+  classes:
+  - Building Under Construction
+  - Construction Crane
+  - Wheeled Construction Vehicles
+  - Construction Site
+  - Heavy Machinery
+  - Nonwooden Construction Material
+  available_in:
+  - ai_features_api
+  fields: []
+- id: damage
+  name: Damage
+  description: AI Pack containing 1 feature classes
+  help_url: null
+  class_count: 1
+  classes:
+  - Building lifecycle
+  available_in:
+  - ai_features_api
+  fields: []
+- id: damage_classifications
+  name: Damage Classifications
+  description: The Damage Classifications pack provides a range of classes to help identify and classify damage to buildings
+    and other structures.
+  help_url: https://help.nearmap.com/kb/articles/158-about-ai-packs
+  class_count: 10
+  classes:
+  - Building with Structural Damage
+  - Building Structural Loss
+  - Vegetation Debris
+  - Building lifecycle
+  - Roof with Temporary Repair
+  - Roof
+  - Building Damage by Tree
+  - Missing Roof Tile or Shingle
+  - Junk and Wreckage
+  - Structural Damage
+  available_in:
+  - ai_features_api
+  fields: []
+- id: damage_non_postcat
+  name: Damage Non Postcat
+  description: AI Pack containing 1 feature classes
+  help_url: null
+  class_count: 1
+  classes:
+  - Building lifecycle
+  available_in:
+  - ai_features_api
+  fields: []
+- id: debris
+  name: Debris
+  description: The Debris AI Pack includes objects related to natural or man-made debris.
+  help_url: https://help.nearmap.com/kb/articles/801-ai-pack-debris
+  class_count: 3
+  classes:
+  - Vegetation Debris
+  - Tyres
+  - Junk and Wreckage
+  available_in:
+  - ai_features_api
+  fields: []
+- id: experimental
+  name: Experimental
+  description: Experimental AI Pack for internal users only
+  help_url: https://help.nearmap.com/kb/articles/886-ai-pack-experimental
+  class_count: 2
+  classes:
+  - Atmospheric Occlusion - Translucent
+  - Atmospheric Occlusion - Opaque
+  available_in:
+  - ai_features_api
+  fields: []
+- id: pavement_cond
+  name: Pavement Condition
+  description: The Pavement Condition pack provides comprehensive insights into the current state of a pavement.
+  help_url: https://help.nearmap.com/kb/articles/1622-ai-pack-pavement-condition
+  class_count: 5
+  classes:
+  - Disintegrated Pavement
+  - Damaged Asphalt
+  - Significantly Stained Pavement
+  - Cracked Pavement
+  - Repaired Pavement
+  available_in:
+  - ai_features_api
+  fields: []
+- id: pavement_marking
+  name: Pavement Marking
+  description: The Pavement AI Pack includes information about markings on pavements.
+  help_url: https://help.nearmap.com/kb/articles/884-ai-pack-pavement-markings
+  class_count: 8
+  classes:
+  - Letters and Numbers
+  - Linear
+  - Pedestrian Crossing
+  - STOP Marking
+  - Block Character
+  - Block Symbol
+  - Painted Lane
+  - Arrow
+  available_in:
+  - ai_features_api
+  fields: []
+- id: pilot1
+  name: Pilot1
+  description: AI Pack containing 9 feature classes
+  help_url: null
+  class_count: 9
+  classes:
+  - Roof Rusting
+  - Roof with Permanent Repair
+  - Roof with Temporary Repair
+  - Roof
+  - Tile or Shingle Staining
+  - Missing Roof Tile or Shingle
+  - Roof Ponding
+  - Zinc Staining
+  - Structural Damage
+  available_in:
+  - ai_features_api
+  fields: []
+- id: poles
+  name: Poles
+  description: AI Pack containing 3 feature classes
+  help_url: null
+  class_count: 3
+  classes:
+  - Pole
+  - Power Pole
+  - Light Pole Base
+  available_in:
+  - ai_features_api
+  fields: []
+- id: pool
+  name: Pool
+  description: A man-made body of water designed for swimming or other leisure activities. Includes covered, poorly maintained
+    (green) and empty pools. Includes hot tubs, outdoor spas, community swimming pools, ocean pools.
+  help_url: https://help.nearmap.com/kb/articles/792-ai-pack-pool
+  class_count: 2
+  classes:
+  - Unmaintained Swimming Pool
+  - Swimming Pool
+  available_in:
+  - ai_features_api
+  fields:
+  - &id001
+    id: swimming_pool_present
+    name: Swimming Pool Present
+    description: Indicates if a swimming pool is detected on the property
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - pool
+    - amenity
+    - detection
+    class: swimming_pool
+    ai_packs:
+    - pool
+    - pool_detection
+    locations:
+    - system: nearmap_features_api
+      field: swimming pool present
+    - system: property_now
+      field: payload.geoJson.features.properties.swimming_pool.value
+    - system: property_insights
+      category: Property Features
+      variable: Swimming Pool
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Swimming Pool'
+  - &id006
+    id: swimming_pool_area
+    name: Swimming Pool Area
+    description: Area of swimming pool
+    data_type: float
+    unit: area_ft2
+    aggregation_level: parcel
+    tags:
+    - pool
+    - amenity
+    - area
+    class: swimming_pool
+    ai_packs:
+    - pool
+    locations:
+    - system: nearmap_features_api
+      field: total clipped area (sq. ft) of swimming pool
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_area_sqft
+      notes: When detection_name = 'Swimming Pool'
+  - &id005
+    id: unmaintained_pool_present
+    name: Unmaintained Pool Present
+    description: Indicates if pool is unmaintained (dirty, debris, etc)
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - pool
+    - amenity
+    - condition
+    - risk
+    class: unmaintained_swimming_pool
+    ai_packs:
+    - pool
+    locations:
+    - system: nearmap_features_api
+      field: unmaintained swimming pool present
+    - system: property_insights
+      category: Property Features
+      variable: Unmaintained Pool
+- id: pool_detection
+  name: Pool Detection
+  description: AI Pack containing 1 feature classes
+  help_url: null
+  class_count: 1
+  classes:
+  - Swimming Pool
+  available_in:
+  - ai_features_api
+  fields:
+  - *id001
+- id: postcat
+  name: Postcat
+  description: AI Pack containing 29 feature classes
+  help_url: null
+  class_count: 29
+  classes:
+  - Unmaintained Swimming Pool
+  - Swimming Pool
+  - Building
+  - Letters and Numbers
+  - Exposed Underlayment
+  - Tarpaulin/Shade Cloth
+  - Exposed Roof Deck
+  - Water Body
+  - Building with Structural Damage
+  - Building Under Construction
+  - Roof Rusting
+  - Building Structural Loss
+  - Atmospheric Occlusion - Translucent
+  - Vegetation Debris
+  - Roof with Permanent Repair
+  - Building lifecycle
+  - Building (Deprecated)
+  - Roof with Temporary Repair
+  - Damaged Asphalt
+  - Roof
+  - Building Damage by Tree
+  - Tile or Shingle Staining
+  - Tyres
+  - Missing Roof Tile or Shingle
+  - Roof Ponding
+  - Zinc Staining
+  - Junk and Wreckage
+  - Structural Damage
+  - Atmospheric Occlusion - Opaque
+  available_in:
+  - ai_features_api
+  fields: []
+- id: postcat_others
+  name: Postcat Others
+  description: AI Pack containing 108 feature classes
+  help_url: null
+  class_count: 108
+  classes:
+  - Raised Car Park
+  - Leaf-off Tree Overhang
+  - Residential Satellite Dish
+  - Bowstring Truss
+  - Clay Tile
+  - Natural (soft)
+  - Junk and Wreckage Overhang
+  - Parapet
+  - Miscellaneous Roof Object
+  - Flat
+  - Wooden Pallet
+  - Linear
+  - Power Line Overhang
+  - Flat (Deprecated)
+  - Trailer
+  - Low Vegetation (0.5m-2m)
+  - Concrete Slab
+  - Vent
+  - Shipping Container
+  - Medium and High Vegetation with Woody Vegetation
+  - Roof Staining
+  - Patio Furniture
+  - Built Up
+  - Solar Panel
+  - Dutch Gable
+  - Road (Driveable Surface)
+  - PVC/TPO
+  - Low Vegetation (0.5m-2m) Overhang
+  - Skylight
+  - Yard Debris
+  - Metal
+  - Ballasted
+  - Pole
+  - Driveway
+  - Gambrel
+  - Shingle
+  - Tile
+  - Power Pole
+  - Gable
+  - Pedestrian Crossing
+  - Roof Walkway
+  - Boat
+  - EPDM
+  - Disintegrated Pavement
+  - Lawn Grass
+  - Construction Crane
+  - HVAC
+  - Trampoline
+  - Wheeled Construction Vehicles
+  - Playground
+  - Mansard
+  - Missing Asphalt shingles
+  - Car
+  - STOP Marking
+  - Mod-Bit
+  - Turret
+  - Roof Debris
+  - Roof Patching
+  - Tree Overhang
+  - Jerkinhead
+  - Block Character
+  - Active Ponding
+  - Asphalt
+  - Worn Shingles
+  - Duct
+  - Fire Pit
+  - Wood Shake
+  - Vegetation Debris Overhang
+  - Construction Site
+  - Block Symbol
+  - Very Low Vegetation (<0.5m)
+  - Painted Lane
+  - Heavy Machinery
+  - Hip
+  - Circular Manhole Covers
+  - Hard Surface
+  - Residential TV Antenna Base
+  - Roof Coating
+  - Silo
+  - Roof Equipment
+  - Structural Damage Composite
+  - Solar Hot Water
+  - Light Pole Base
+  - Power Line
+  - Residential Chimney
+  - Translucent Roofing
+  - Pipe
+  - Tennis Court
+  - Dormer Window
+  - Significantly Stained Pavement
+  - Leaf-off Vegetation
+  - Slate
+  - Wooden Decking
+  - Grain Bin
+  - Natural (hard)
+  - Medium and High Vegetation (>2m)
+  - Cracked Pavement
+  - Quonset
+  - Woody Vegetation
+  - Nonwooden Construction Material
+  - A/C Condenser Unit
+  - Dumpster
+  - Arrow
+  - Natural Pervious Surface
+  - All-in Vegetation
+  - Very Low Vegetation (<0.5m) Overhang
+  - Repaired Pavement
+  - Greenhouse
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_char
+  name: Roof Characteristics
+  description: This AI Pack can be purchased as an add-on to the Residential Building Footprints pack. It adds AI Layers and
+    AI Parcel outputs related to the dominant material of the roof (shingle, tile, metal or other), the presence of various
+    structural shapes on the roof (hip, gable, flat and turret presence), and trees overhanging the building.
+  help_url: https://help.nearmap.com/kb/articles/789-ai-pack-roof-characteristics
+  class_count: 13
+  classes:
+  - Leaf-off Tree Overhang
+  - Flat
+  - Flat (Deprecated)
+  - Dutch Gable
+  - Metal
+  - Shingle
+  - Tile
+  - Gable
+  - Turret
+  - Tree Overhang
+  - Hip
+  - Roof
+  - Dormer Window
+  available_in:
+  - ai_features_api
+  fields:
+  - &id002
+    id: tree_overhang_present
+    name: Tree Overhang Present
+    description: Indicates if trees overhang roof structures
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - vegetation
+    - overhang
+    - risk
+    class: tree_overhang
+    ai_packs:
+    - roof_char
+    - roof_overhang
+    locations:
+    - system: nearmap_features_api
+      field: tree overhang present
+    - system: property_now
+      field: payload.geoJson.features.properties.overhang.value
+    - system: property_insights
+      category: Roof Overhang
+      variable: Tree Overhang (Medium & High Vegetation Overhang)
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Tree Overhang'
+  - &id013
+    id: roof_pitch
+    name: Roof Pitch
+    description: Measured in degrees from horizontal, this is the pitch of the largest area of the roof
+    data_type: float
+    unit: degrees
+    tags:
+    - roof
+    - pitch
+    - angle
+    - slope
+    aggregation_level: building
+    ai_packs:
+    - roof_char
+    class: roof
+    locations:
+    - system: nearmap_features_api
+      field: roof pitch (degrees) of roof
+  - &id016
+    id: roof_hip_present
+    name: Hip Roof Present
+    description: Indicates if a hip roof shape is detected
+    data_type: boolean
+    tags:
+    - roof
+    - shape
+    - hip
+    - structure
+    aggregation_level: parcel
+    ai_packs:
+    - roof_char
+    class: hip
+    locations:
+    - system: nearmap_features_api
+      field: hip present
+  - &id020
+    id: roof_gable_present
+    name: Gable Roof Present
+    description: Indicates if a gable roof shape is detected
+    data_type: boolean
+    tags:
+    - roof
+    - shape
+    - gable
+    - structure
+    aggregation_level: parcel
+    ai_packs:
+    - roof_char
+    class: gable
+    locations:
+    - system: nearmap_features_api
+      field: gable present
+  - &id014
+    id: roof_flat_present
+    name: Flat Roof Present
+    description: Indicates if a flat roof area is detected
+    data_type: boolean
+    tags:
+    - roof
+    - shape
+    - flat
+    - structure
+    aggregation_level: parcel
+    ai_packs:
+    - roof_char
+    class: flat
+    locations:
+    - system: nearmap_features_api
+      field: flat present
+- id: roof_cond
+  name: Roof Condition
+  description: The Roof Condition AI Pack provides detailed information about the state of repair of a roof - both short term
+    damage due to catastrophe, and longer term degradation.
+  help_url: https://help.nearmap.com/kb/articles/797-ai-pack-roof-condition
+  class_count: 9
+  classes:
+  - Roof Rusting
+  - Roof with Permanent Repair
+  - Roof with Temporary Repair
+  - Roof
+  - Tile or Shingle Staining
+  - Missing Roof Tile or Shingle
+  - Roof Ponding
+  - Zinc Staining
+  - Structural Damage
+  available_in:
+  - ai_features_api
+  fields:
+  - &id018
+    id: structural_damage_present
+    name: Structural Damage Present
+    description: Indicates if structural damage is detected on roofs
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - roof
+    - condition
+    - damage
+    - structural
+    - risk
+    class: structural_damage
+    ai_packs:
+    - roof_cond
+    locations:
+    - system: nearmap_features_api
+      field: structural damage present
+    - system: property_now
+      field: payload.geoJson.features.properties.structural_damage.value
+    - system: property_insights
+      category: Roof Conditions
+      variable: Structurally Damaged Roof
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Structural Damage'
+  - &id019
+    id: structural_damage_area
+    name: Structural Damage Area
+    description: Total area of structural damage on roofs
+    data_type: float
+    unit: area_ft2
+    aggregation_level: parcel
+    tags:
+    - roof
+    - condition
+    - damage
+    - area
+    class: structural_damage
+    ai_packs:
+    - roof_cond
+    locations:
+    - system: nearmap_features_api
+      field: total clipped area (sq. ft) of structural damage
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_area_sqft
+      notes: When detection_name = 'Structural Damage'
+- id: roof_materials
+  name: Roof Materials
+  description: AI Pack containing 13 feature classes
+  help_url: null
+  class_count: 13
+  classes:
+  - Clay Tile
+  - Built Up
+  - PVC/TPO
+  - Metal
+  - Ballasted
+  - Shingle
+  - Tile
+  - EPDM
+  - Mod-Bit
+  - Wood Shake
+  - Roof Coating
+  - Roof
+  - Slate
+  available_in:
+  - ai_features_api
+  fields:
+  - &id024
+    id: roof_material_shingle
+    name: Shingle Roof Material
+    description: Asphalt shingle roof material areas
+    data_type: geometry
+    tags:
+    - roof
+    - material
+    - shingle
+    aggregation_level: building
+    ai_packs:
+    - roof_materials
+    class: shingle
+    locations:
+    - system: nearmap_features_api
+      field: shingle present
+  - &id007
+    id: roof_material_tile
+    name: Tile Roof Material
+    description: Ceramic or concrete tile roof covering areas
+    data_type: geometry
+    tags:
+    - roof
+    - material
+    - tile
+    aggregation_level: building
+    ai_packs:
+    - roof_materials
+    class: tile
+    locations:
+    - system: nearmap_features_api
+      field: tile present
+  - &id023
+    id: roof_material_metal
+    name: Metal Roof Material
+    description: Metal roof covering areas
+    data_type: geometry
+    tags:
+    - roof
+    - material
+    - metal
+    aggregation_level: building
+    ai_packs:
+    - roof_materials
+    class: metal
+    locations:
+    - system: nearmap_features_api
+      field: metal present
+- id: roof_objects
+  name: Roof Objects
+  description: The Roof Objects AI Pack includes objects commonly found on roofs.
+  help_url: https://help.nearmap.com/kb/articles/885-ai-pack-roof-objects
+  class_count: 8
+  classes:
+  - Residential Satellite Dish
+  - Solar Panel
+  - Skylight
+  - Residential TV Antenna Base
+  - Solar Hot Water
+  - Residential Chimney
+  - Translucent Roofing
+  - A/C Condenser Unit
+  available_in:
+  - ai_features_api
+  fields:
+  - &id003
+    id: solar_panel_present
+    name: Solar Panel Present
+    description: Indicates if solar panels are detected
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - solar
+    - green
+    - detection
+    - amenity
+    class: solar_panel
+    ai_packs:
+    - roof_objects
+    - solar
+    locations:
+    - system: nearmap_features_api
+      field: solar panel present
+    - system: property_now
+      field: payload.geoJson.features.properties.solar_panels.value
+    - system: property_insights
+      category: Roof Features
+      variable: Solar Panel
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Solar Panel'
+  - &id004
+    id: solar_panel_area
+    name: Solar Panel Area
+    description: Total area covered by solar panels
+    data_type: float
+    unit: area_ft2
+    aggregation_level: parcel
+    tags:
+    - solar
+    - green
+    - area
+    - amenity
+    class: solar_panel
+    ai_packs:
+    - solar
+    - roof_objects
+    locations:
+    - system: nearmap_features_api
+      field: total clipped area (sq. ft) of solar panel
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_area_sqft
+      notes: When detection_name = 'Solar Panel'
+  - &id028
+    id: chimney_present
+    name: Chimney Present
+    description: Indicates if a chimney is detected on the roof
+    data_type: boolean
+    tags:
+    - roof
+    - object
+    - chimney
+    - structure
+    aggregation_level: parcel
+    ai_packs:
+    - roof_objects
+    class: chimney
+    locations:
+    - system: nearmap_features_api
+      field: chimney present
+  - &id021
+    id: skylight_present
+    name: Skylight Present
+    description: Windows or glass panels on roofs
+    data_type: boolean
+    tags:
+    - roof
+    - object
+    - skylight
+    - window
+    aggregation_level: parcel
+    ai_packs:
+    - roof_objects
+    class: skylight
+    locations:
+    - system: nearmap_features_api
+      field: skylight present
+  - id: ac_condenser_present
+    name: A/C Condenser Unit Present
+    description: Air conditioning condenser unit detected on roof
+    data_type: boolean
+    tags:
+    - roof
+    - object
+    - hvac
+    - ac
+    aggregation_level: parcel
+    ai_packs:
+    - roof_objects
+    class: ac_condenser
+    locations:
+    - system: nearmap_features_api
+      field: a/c condenser unit present
+- id: roof_overhang
+  name: Roof Overhang
+  description: The Roof Overhang pack provides information about objects that overhang other objects.
+  help_url: https://help.nearmap.com/kb/articles/158-about-ai-packs
+  class_count: 8
+  classes:
+  - Leaf-off Tree Overhang
+  - Junk and Wreckage Overhang
+  - Power Line Overhang
+  - Low Vegetation (0.5m-2m) Overhang
+  - Tree Overhang
+  - Vegetation Debris Overhang
+  - Roof
+  - Very Low Vegetation (<0.5m) Overhang
+  available_in:
+  - ai_features_api
+  fields:
+  - *id002
+- id: roof_shape
+  name: Roof Shape
+  description: AI Pack containing 13 feature classes
+  help_url: null
+  class_count: 13
+  classes:
+  - Bowstring Truss
+  - Parapet
+  - Flat
+  - Dutch Gable
+  - Gambrel
+  - Gable
+  - Mansard
+  - Turret
+  - Jerkinhead
+  - Hip
+  - Roof
+  - Dormer Window
+  - Quonset
+  available_in:
+  - ai_features_api
+  fields: []
+- id: solar
+  name: Solar Panels
+  description: Any photovoltaic (PV) panels designed for electricity generation, whether roof or ground-mounted. Solar hot
+    water systems are explicitly excluded from the definition.
+  help_url: https://help.nearmap.com/kb/articles/791-ai-pack-solar-panels
+  class_count: 2
+  classes:
+  - Solar Panel
+  - Solar Hot Water
+  available_in:
+  - ai_features_api
+  fields:
+  - *id003
+  - *id004
+- id: surface_permeability
+  name: Surface Permeability
+  description: The Surface Permeability AI Pack includes features that indicate the permeability of surfaces.
+  help_url: https://help.nearmap.com/kb/articles/800-ai-pack-surface-permeability
+  class_count: 2
+  classes:
+  - Hard Surface
+  - Natural Pervious Surface
+  available_in:
+  - ai_features_api
+  fields: []
+- id: surfaces
+  name: Surfaces
+  description: The surfaces AI Pack includes a vectorised set of layers that describe the nature of the ground surface in
+    an area.
+  help_url: https://help.nearmap.com/kb/articles/795-ai-pack-surfaces
+  class_count: 8
+  classes:
+  - Natural (soft)
+  - Concrete Slab
+  - Water Body
+  - Road (Driveable Surface)
+  - Driveway
+  - Lawn Grass
+  - Asphalt
+  - Natural (hard)
+  available_in:
+  - ai_features_api
+  fields: []
+- id: trampoline
+  name: Trampolines
+  description: Any shape and size of trampoline (rectangular or circular), in a backyard or in a front yard. Includes both
+    trampolines with and without safety netting around.
+  help_url: https://help.nearmap.com/kb/articles/790-ai-pack-trampoline
+  class_count: 1
+  classes:
+  - Trampoline
+  available_in:
+  - ai_features_api
+  fields:
+  - &id025
+    id: trampoline_present
+    name: Trampoline Present
+    description: Indicates if a trampoline is detected
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - trampoline
+    - risk
+    - detection
+    class: trampoline
+    ai_packs:
+    - trampoline
+    locations:
+    - system: nearmap_features_api
+      field: trampoline present
+    - system: property_now
+      field: payload.geoJson.features.properties.trampoline.value
+    - system: property_insights
+      category: Property Features
+      variable: Trampoline
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Trampoline'
+- id: utilities
+  name: Utilities
+  description: The Utilities pack provides information about utility infrastructure.
+  help_url: https://help.nearmap.com/kb/articles/158-about-ai-packs
+  class_count: 6
+  classes:
+  - Power Line Overhang
+  - Pole
+  - Power Pole
+  - Circular Manhole Covers
+  - Light Pole Base
+  - Power Line
+  available_in:
+  - ai_features_api
+  fields: []
+- id: vegetation
+  name: Vegetation
+  description: The vegetation AI Pack includes a vectorised set of layers that delineate above ground vegetation into approximate
+    height based groupings.
+  help_url: https://help.nearmap.com/kb/articles/796-ai-pack-vegetation
+  class_count: 7
+  classes:
+  - Low Vegetation (0.5m-2m)
+  - Medium and High Vegetation with Woody Vegetation
+  - Very Low Vegetation (<0.5m)
+  - Leaf-off Vegetation
+  - Medium and High Vegetation (>2m)
+  - Woody Vegetation
+  - All-in Vegetation
+  available_in:
+  - ai_features_api
+  fields:
+  - id: tree_canopy
+    name: Tree Canopy
+    description: Trees and large bushes greater than 2 meters in height
+    data_type: geometry
+    tags:
+    - vegetation
+    - tree
+    - canopy
+    aggregation_level: parcel
+    ai_packs:
+    - vegetation
+    class: tree_canopy
+    locations:
+    - system: nearmap_features_api
+      field: tree canopy
+  - id: tree_canopy_area
+    name: Tree Canopy Area
+    description: Total clipped area of tree canopy coverage
+    data_type: float
+    unit: area_m2
+    tags:
+    - vegetation
+    - tree
+    - area
+    - measurement
+    aggregation_level: parcel
+    ai_packs:
+    - vegetation
+    class: tree_canopy
+    locations:
+    - system: nearmap_features_api
+      field: total clipped area (sq. m) of tree canopy
+  - id: defensible_space_zone1
+    name: Defensible Space Zone 1
+    description: Area free from vegetation/debris/structures within 0-5 feet
+    data_type: float
+    unit: area_ft2
+    range:
+    - 0
+    - 5
+    tags:
+    - wildfire
+    - defensible
+    - zone
+    - risk
+    aggregation_level: parcel
+    ai_packs:
+    - vegetation
+    class: defensible_space
+    locations:
+    - system: nearmap_features_api
+      field: defensible space zone 1 (0-5 feet)
+    - system: betterview_warehouse
+      table: defensible_space
+      column: zone_area_sqft
+      notes: When zone_range = 5
+  - id: defensible_space_zone2
+    name: Defensible Space Zone 2
+    description: Area free from vegetation/debris/structures within 5-30 feet
+    data_type: float
+    unit: area_ft2
+    range:
+    - 5
+    - 30
+    tags:
+    - wildfire
+    - defensible
+    - zone
+    - risk
+    aggregation_level: parcel
+    ai_packs:
+    - vegetation
+    class: defensible_space
+    locations:
+    - system: nearmap_features_api
+      field: defensible space zone 2 (5-30 feet)
+    - system: betterview_warehouse
+      table: defensible_space
+      column: zone_area_sqft
+      notes: When zone_range = 30
+- id: yard_objects
+  name: Yard Objects
+  description: The Yard Objects AI pack offers a comprehensive collection of items commonly found in outdoor spaces.
+  help_url: https://help.nearmap.com/kb/articles/1619-ai-pack-yard-objects
+  class_count: 14
+  classes:
+  - Wooden Pallet
+  - Trailer
+  - Shipping Container
+  - Patio Furniture
+  - Yard Debris
+  - Boat
+  - Playground
+  - Car
+  - Fire Pit
+  - Heavy Machinery
+  - Tennis Court
+  - Wooden Decking
+  - Nonwooden Construction Material
+  - Dumpster
+  available_in:
+  - ai_features_api
+  fields:
+  - &id022
+    id: yard_debris_present
+    name: Yard Debris Present
+    description: Indicates if yard debris is detected
+    data_type: boolean
+    aggregation_level: parcel
+    tags:
+    - debris
+    - yard
+    - risk
+    class: yard_debris
+    ai_packs:
+    - yard_objects
+    locations:
+    - system: nearmap_features_api
+      field: yard debris present
+    - system: property_now
+      field: payload.geoJson.features.properties.yard_debris.value
+    - system: property_insights
+      category: Property Features
+      variable: Yard Debris
+    - system: betterview_warehouse
+      table: property_detection
+      column: detection_name
+      notes: When detection_name = 'Yard Debris'
+ai_classes:
+- id: raised_car_park
+  class_id: '0'
+  uuid: 00b83b22-a1a5-5268-99fb-62c3c3554d1d
+  name: Raised Car Park
+  description: Car park on top of a building, including entry ramps.
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/869-75-raised-carpark
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: unmaintained_swimming_pool
+  class_id: '1'
+  uuid: 00f385f3-683b-52d4-953e-02e86f2e89c7
+  name: Unmaintained Swimming Pool
+  description: A swimming pool which contains water, however the water is in a state that would not be safe for people to
+    swim in (e.g. green, brown, or murky).
+  pack: pool
+  packs:
+  - pool
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/851-110-unmaintained-swimming-pool
+  tags:
+  - pool
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id005
+- id: pool_condition
+  class_id: '2'
+  uuid: 027835c1-443c-55aa-940f-26b474cea277
+  name: Pool Condition
+  description: Pool Condition
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - pool
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: swimming_pool
+  class_id: '3'
+  uuid: 0339726f-081e-5a6e-b9a9-42d95c1b5c8a
+  name: Swimming Pool
+  description: A man-made body of water designed for swimming.
+  pack: pool
+  packs:
+  - pool
+  - pool_detection
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/805-01-swimming-pool
+  tags:
+  - pool
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id001
+  - *id006
+- id: leaf_off_tree_overhang
+  class_id: '4'
+  uuid: 042a1d14-4a23-50dc-aabb-befc9645af3b
+  name: Leaf-off Tree Overhang
+  description: Parts of a roof covered with leaf-off tree overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_overhang
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id002
+- id: residential_satellite_dish
+  class_id: '5'
+  uuid: 046ba67f-ca1e-5801-bb1c-bfcafea2d796
+  name: Residential Satellite Dish
+  description: Any small satellite dish, as typically used for receiving satellite TV or internet services.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: bowstring_truss
+  class_id: '6'
+  uuid: 09b925d2-df1d-599b-89f1-3ffd39df791e
+  name: Bowstring Truss
+  description: Bowstring Truss
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: null
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: clay_tile
+  class_id: '7'
+  uuid: 09ed6bf9-182a-5c79-ae59-f5531181d298
+  name: Clay Tile
+  description: Roof tiles made from clay on a pitched roof.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1341-225-clay-tile
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id007
+- id: natural_(soft)
+  class_id: '8'
+  uuid: 0ad1355f-5dfd-403b-8b8b-b7d8ed95731f
+  name: Natural (soft)
+  description: Dirt, sand, clay and gravel.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/812-12-natural-soft
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: junk_and_wreckage_overhang
+  class_id: '9'
+  uuid: 122abf34-b8d7-5c81-b353-69c518f13688
+  name: Junk and Wreckage Overhang
+  description: Parts of a roof covered with any junk or rubbish manufactured by humans, and now discarded from its original
+    use. Rubbish tips, abandoned vehicles, illegal dump sites, construction waste, garbage floating in the ocean and on beaches,
+    wreckage after a catastrophe, etc.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: parapet
+  class_id: '10'
+  uuid: 1234ea84-e334-5c58-88a9-6554be3dfc05
+  name: Parapet
+  description: Raised wall around the outer edge of a flat or bowstring truss roof.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1345-240-parapet
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: building
+  class_id: '11'
+  uuid: 1878ccf6-46ec-55a7-a20b-0cf658afb755
+  name: Building
+  description: A shelter comprising a partially or totally enclosed space, erected by means of a planned process of forming
+    and combining materials.
+  pack: building
+  packs:
+  - building
+  - building_char
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/892-119-building
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: letters_and_numbers
+  class_id: '12'
+  uuid: 19029055-9962-588e-b7a9-227a82d20869
+  name: Letters and Numbers
+  description: Any letters or numbers that can be read from the air; both handwritten signs, and machine painted text.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/866-109-letters-and-numbers
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: miscellaneous_roof_object
+  class_id: '13'
+  uuid: 1948fc2b-40cb-5107-b095-339b77a6ef57
+  name: Miscellaneous Roof Object
+  description: A significant and identifiable roof object that is not part of another roof object class or specifically excluded.
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/1371-297-miscellaneous-roof-object
+  tags:
+  - roof
+  - alpha
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: building_3d_attributes
+  class_id: '14'
+  uuid: 19e49dad-4228-554e-9f5e-c2e37b2e11d9
+  name: Building 3d attributes
+  description: Building 3d attributes
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: flat
+  class_id: '15'
+  uuid: 1ab60ef7-e770-5ab6-995e-124676b2be11
+  name: Flat
+  description: A roof or part of a roof that is flat and specifically disallows tile or shingle roof materials.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/831-33-flat-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id014
+- id: wooden_pallet
+  class_id: '16'
+  uuid: 1ce5ce00-9970-5673-b76e-31713a7012ca
+  name: Wooden Pallet
+  description: Pallets made from wood used to transport other construction materials and objects.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1364-276-wooden-pallet
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: linear
+  class_id: '17'
+  uuid: 1ea715ed-5166-55e3-a342-96a78e238633
+  name: Linear
+  description: A longitudinal, transverse, hazard or facility marking as defined in IRC-35-2015 used for navigation.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/857-120-linear
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: power_line_overhang
+  class_id: '18'
+  uuid: 1ef797a5-8057-5e8b-a24d-dc7cd8f1fa7b
+  name: Power Line Overhang
+  description: Parts of a roof covered with suspended cables that carry power, running in parallel to at least 1 other cable
+    (excludes single cables)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  - utilities
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_types
+  class_id: '19'
+  uuid: 20a58db2-bc02-531d-98f5-451f88ce1fed
+  name: Roof types
+  description: Roof types
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: flat_(deprecated)
+  class_id: '20'
+  uuid: 224f98d3-b853-542a-8b18-e1e46e3a8200
+  name: Flat (Deprecated)
+  description: A roof or part of a roof that is flat.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/831-33-flat-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id014
+- id: exposed_underlayment
+  class_id: '21'
+  uuid: 2322ca41-5d3d-5782-b2b7-1a2ffd0c4b78
+  name: Exposed Underlayment
+  description: Area on a roof where the underlayment of a roof is visible.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1369-283-exposed-underlayment
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: trailer
+  class_id: '22'
+  uuid: 23faf093-7cdc-5c6a-accb-131ac39638b5
+  name: Trailer
+  description: Open devices used to transport large objects on the backs of trucks.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1360-270-trailer
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: tarpaulin_shade_cloth
+  class_id: '23'
+  uuid: 266bdc07-1c54-5d55-abb1-fab053645071
+  name: Tarpaulin/Shade Cloth
+  description: Temporary or semi-permanent fabric structure designed for shading an area, or temporarily protecting a roof.
+  pack: postcat
+  packs:
+  - postcat
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/811-06-tarpaulin-shade-cloth
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: low_vegetation_(0.5m_2m)
+  class_id: '24'
+  uuid: 2780fa70-7713-437c-ad98-656b8a5cc4f2
+  name: Low Vegetation (0.5m-2m)
+  description: Trees and large bushes 0.5 - 2m in height.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/814-09-low-vegetation-0-5m-2m
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: exposed_roof_deck
+  class_id: '25'
+  uuid: 2905ba1c-6d96-58bc-9b1b-5911b3ead023
+  name: Exposed Roof Deck
+  description: Visible areas of wood boards on a roof.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1331-203-exposed-roof-deck
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id015
+- id: concrete_slab
+  class_id: '26'
+  uuid: 290897be-078b-4948-97aa-755289a67a29
+  name: Concrete Slab
+  description: Any flat surface area made of concrete.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/819-14-concrete-slab
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: vent
+  class_id: '27'
+  uuid: 2a41d66b-91ef-5b51-8737-a53e8751dff7
+  name: Vent
+  description: Vents are openings that are used to move air in and out of a building.
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1362-273-vent
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: water_body
+  class_id: '28'
+  uuid: 2e0bd9e3-3b67-4990-84dc-1b4812fdd02b
+  name: Water Body
+  description: Natural body of water that is not built for swimming.
+  pack: postcat
+  packs:
+  - postcat
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/804-0-water-body
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_condition
+  class_id: '29'
+  uuid: 3065525d-3f14-5b9d-8c4c-077f1ad5c694
+  name: Roof Condition
+  description: Roof Condition
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: shipping_container
+  class_id: '30'
+  uuid: 3076accc-81e1-5a69-b570-d275b1cf420c
+  name: Shipping Container
+  description: Large metal containers used to transport large cargo or large numbers of items.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1353-255-shipping-container
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id016
+- id: medium_and_high_vegetation_with_woody_vegetation
+  class_id: '31'
+  uuid: 30fc0c55-2b61-569f-b424-44082987ecb9
+  name: Medium and High Vegetation with Woody Vegetation
+  description: Trees or shrublike vegetation.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1636-1193-medium-and-high-vegetation-with-woody-vegetation
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_staining
+  class_id: '32'
+  uuid: 319f552f-f4b7-520d-9b16-c8abb394b043
+  name: Roof Staining
+  description: Staining is when water, smoke, or dirt leaves marks on a roof.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1396-259-roof-staining
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id017
+- id: patio_furniture
+  class_id: '33'
+  uuid: 32d1fa98-85f3-578c-8348-31d966f636a6
+  name: Patio Furniture
+  description: Objects like tables and chairs, couches, lounge chairs and hammocks, found outside of a building.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1336-215-patio-furniture
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: building_with_structural_damage
+  class_id: '34'
+  uuid: 3534a1fc-2e12-51a7-b2dc-1c850bc69fc1
+  name: Building with Structural Damage
+  description: 'Building with Structural Damage: Evidence of destruction exposing the interior of a structure to the elements,
+    that does not prevent the structure from performing its function; the structure is still standing and theoretically a
+    human could still enter it.'
+  pack: building_structures
+  packs:
+  - building_structures
+  - damage_classifications
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1261-133-structural-damage
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id018
+  - *id019
+- id: built_up
+  class_id: '35'
+  uuid: 3563c8f1-e81e-52c7-bd56-eaa937010403
+  name: Built Up
+  description: A smooth, dark roof surface consisting of a layer of felt covered with hot asphalt.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1343-230-built-up
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: solar_panel
+  class_id: '36'
+  uuid: 3680e1b8-8ae1-5a15-8ec7-820078ef3298
+  name: Solar Panel
+  description: Any photovoltaic (PV) panel designed for electricity generation, whether roof or ground mounted.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  - solar
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/803-03-solar-panel
+  tags:
+  - solar
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id003
+  - *id004
+- id: dutch_gable
+  class_id: '37'
+  uuid: 3719eb40-d6d1-5071-bbe6-379a551bb65f
+  name: Dutch Gable
+  description: A roof with a small gable at the top of a hip roof.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/830-32-dutch-gable
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id020
+- id: road_(driveable_surface)
+  class_id: '38'
+  uuid: 372fb6c1-a3ab-5019-ba0f-489ed12079de
+  name: Road (Driveable Surface)
+  description: Any public or private surface regularly driven on by motorised vehicles.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/817-17-road-driveable-surface
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: pvc_tpo
+  class_id: '39'
+  uuid: 383930f1-d866-5aa3-9f97-553311f3162d
+  name: PVC/TPO
+  description: 'Thermoplastic Single-Ply Membrane (PVC and TPO) Roof: A roof system comprised of membrane sheets made from
+    Polyvinyl chloride (PVC) or Thermoplastic (TPO) materials.'
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1310-150-pvc-tpo
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: low_vegetation_(0.5m_2m)_overhang
+  class_id: '40'
+  uuid: 38c4dd92-868c-582a-a4d5-537c88dcec75
+  name: Low Vegetation (0.5m-2m) Overhang
+  description: Parts of a roof covered with bushes and other vegetation between 0.5 and 2m in height
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_3d_attributes
+  class_id: '41'
+  uuid: 39072960-5582-52af-9051-4bc8625ff9ba
+  name: Roof 3d attributes
+  description: Roof 3d attributes
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: pole_type
+  class_id: '42'
+  uuid: 3de89e9f-5e2f-5715-8b2b-fba35d536507
+  name: Pole type
+  description: Pole type
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: skylight
+  class_id: '43'
+  uuid: 3f5a737e-6d56-538a-ac26-f2934bbbb695
+  name: Skylight
+  description: A skylight is a window or glass panel in a roof.
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1355-257-translucent-roofing
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id021
+- id: yard_debris
+  class_id: '44'
+  uuid: 405efaad-4b79-585d-88d8-43ae5fbb6f05
+  name: Yard Debris
+  description: Piles of many different objects mixed together.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1328-200-yard-debris
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id022
+- id: metal
+  class_id: '45'
+  uuid: 4424186a-0b42-5608-a5a0-d4432695c260
+  name: Metal
+  description: Roof comprised of metal sheets, cladding. Zinc, copper and steel alloys are commonly used.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/826-29-metal-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id023
+- id: ballasted
+  class_id: '46'
+  uuid: 4558c4fb-3ddf-549d-b2d2-471384be23d1
+  name: Ballasted
+  description: 'Ballasted Roof Materials: A roof system with a top layer consisting of small stones or gravel.'
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1307-147-ballasted
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: pole
+  class_id: '47'
+  uuid: 46f2f9ce-8c0f-50df-a9e0-4c2026dd3f95
+  name: Pole
+  description: Composite of various types of poles. This class is not exhaustive.
+  pack: poles
+  packs:
+  - poles
+  - postcat_others
+  - utilities
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/807-07-pole
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: building_under_construction
+  class_id: '48'
+  uuid: 4794d3ec-0ee7-5def-ad56-f82ff7639bce
+  name: Building Under Construction
+  description: Refers to buildings with construction where it has parts at least 1.5m above ground/slab.
+  pack: construction
+  packs:
+  - construction
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/837-80-building-under-construction
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: driveway
+  class_id: '49'
+  uuid: 4aec3d8a-da20-5fcd-a868-6c19d2772b2e
+  name: Driveway
+  description: Any surface that is driven on by a vehicle AND joins a private property to a public road.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/827-20-driveway
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: gambrel
+  class_id: '50'
+  uuid: 4bb630b9-f9eb-5f95-85b8-f0c6caf16e9b
+  name: Gambrel
+  description: A barn-like, symmetrical, two-sided roof with two slopes on each side. The upper slope is positioned at a shallow
+    angle, while the lower slope is steep.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1350-36-gambrel
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: shingle
+  class_id: '51'
+  uuid: 4bbf8dbd-cc81-5773-961f-0121101422be
+  name: Shingle
+  description: Roof comprised of a patchwork of shingles. Roof shingles are a roof covering consisting of individual overlapping
+    elements, and are made from a variety of materials.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/825-28-shingle-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id024
+- id: tile
+  class_id: '52'
+  uuid: 516fdfd5-0be9-59fe-b849-92faef8ef26e
+  name: Tile
+  description: Roof tiles are typically made of terracotta or concrete, and form a regular pattern of ridges on a roof.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/824-27-tile-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id007
+- id: roof_rusting
+  class_id: '53'
+  uuid: 526496bf-7344-5024-82d7-77ceb671feb4
+  name: Roof Rusting
+  description: Rusting signs of metal roofs.
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/840-84-roof-rusting
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: power_pole
+  class_id: '54'
+  uuid: 582f5f70-5a21-50b8-a764-5824f8af5c94
+  name: Power Pole
+  description: A power (or utility) pole, that carries aerial power lines and other equipment.
+  pack: poles
+  packs:
+  - poles
+  - postcat_others
+  - utilities
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/807-07-power-pole
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: building_structural_loss
+  class_id: '55'
+  uuid: 584188c4-4f77-5724-a782-f13865ab0dbc
+  name: Building Structural Loss
+  description: 'Building Structural Loss: The site of a building where walls/vertical supports are no longer standing and
+    the structure no longer exists or can serve its purpose.'
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1260-138-structural-loss
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: gable
+  class_id: '56'
+  uuid: 59c6e27e-6ef2-5b5c-90e7-31cfca78c0c2
+  name: Gable
+  description: 'A gable roof, or part of a roof that is gable: with inverted v shaped ends.'
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/829-31-gable-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id020
+- id: pedestrian_crossing
+  class_id: '57'
+  uuid: 5a370e2f-e881-5cca-8284-bb0fb683ff14
+  name: Pedestrian Crossing
+  description: A marked part of the road where pedestrians have right of way to cross - marked with painted stripes.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/863-69-pedestrian-crossing
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: atmospheric_occlusion___translucent
+  class_id: '58'
+  uuid: 5b556adb-2160-53f9-9bdd-b2be9ab58f51
+  name: Atmospheric Occlusion - Translucent
+  description: Particles in the air that blur the clarity of anything below them.
+  pack: experimental
+  packs:
+  - experimental
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/871-132-atmospheric-occlusion-translucent
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_walkway
+  class_id: '59'
+  uuid: 5c50f05d-b158-5cf1-ad0b-e231bde9615c
+  name: Roof Walkway
+  description: Designated places for people to walk while working on a roof.
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1352-250-roof-walkway
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: boat
+  class_id: '60'
+  uuid: 62a0958e-2139-5688-a776-b88c6049d50e
+  name: Boat
+  description: Boats for personal use.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1326-197-boat
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: epdm
+  class_id: '61'
+  uuid: 64db6ea0-7248-53f5-b6a6-6ed733c5f9b8
+  name: EPDM
+  description: 'Thermoset Single-Ply Membrane (EPDM) Roof Materials: A roof system comprised of rubber membrane sheets.'
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1311-151-epdm
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: disintegrated_pavement
+  class_id: '62'
+  uuid: 661b420c-afb8-541f-be6a-dc7a7b11de53
+  name: Disintegrated Pavement
+  description: Any part of the pavement that has been uprooted, has chipped off, or is otherwise missing.
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1367-281-disintegrated-pavement
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: vegetation_debris
+  class_id: '63'
+  uuid: 6832955f-89c6-5cfd-874d-40c22aead943
+  name: Vegetation Debris
+  description: Any natural debris as a result of storms, flooding, or other reasons where vegetation is.uprooted or damaged.
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - debris
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/847-107-vegetation-debris
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: lawn_grass
+  class_id: '64'
+  uuid: 68dc5061-5842-4a17-8073-e278a91b607d
+  name: Lawn Grass
+  description: Regularly mowed or maintained grassland.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/816-11-lawn-grass
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: construction_crane
+  class_id: '65'
+  uuid: 6a2c2adb-0914-56b3-8a2d-871b803a0dd7
+  name: Construction Crane
+  description: Any fixed crane used for construction.
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/836-79-construction-crane
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_with_permanent_repair
+  class_id: '66'
+  uuid: 7218eb36-0d36-5b53-a2fe-6e99c7d950bc
+  name: Roof with Permanent Repair
+  description: A permanent section of covering material affixed to an existing roof after initial installation.
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/843-127-permanent-roof-repair
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: hvac
+  class_id: '67'
+  uuid: 741b512f-a4a9-5107-a301-a0d1a7094783
+  name: HVAC
+  description: Units are devices that control heating, ventilation, and air conditioning systems.
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/1624-208-hvac
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: trampoline
+  class_id: '68'
+  uuid: 753621ee-0b9f-515e-9bcf-ea40b96612ab
+  name: Trampoline
+  description: A trampoline is a device consisting of a piece of taut, strong fabric stretched between a steel frame using
+    many coiled springs.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - trampoline
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/823-26-trampoline
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id025
+- id: wheeled_construction_vehicles
+  class_id: '69'
+  uuid: 75efd1e7-c253-59f0-b3aa-95f9c17efa93
+  name: Wheeled Construction Vehicles
+  description: Any wheeled heavy construction vehicles that are being used in a construction project.
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/835-78-wheeled-construction-vehicles
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: playground
+  class_id: '70'
+  uuid: 7741703d-4ce4-54e1-a9ee-05a0a1851137
+  name: Playground
+  description: Playground equipment on both residential and commercial properties.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1338-218-playground
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_overhang_attributes
+  class_id: '71'
+  uuid: 7ab56e15-d5d4-51bb-92bd-69e910e82e56
+  name: Roof overhang attributes
+  description: Roof overhang attributes
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: mansard
+  class_id: '72'
+  uuid: 7eb3b1b6-0d75-5b1f-b41c-b14146ff0c54
+  name: Mansard
+  description: A roof that is flat on the top and slanted down on the sides.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1346-241-mansard
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: missing_asphalt_shingles
+  class_id: '73'
+  uuid: 82b4547b-b8c0-5e9a-84c2-5c7564b4586c
+  name: Missing Asphalt shingles
+  description: Visible tab or underlayment on a roof where a shingle has been dislodged.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1633-211-missing-asphalt-shingles
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id024
+- id: car
+  class_id: '74'
+  uuid: 8337e0e1-e171-5292-89cc-99c0da2a4fe4
+  name: Car
+  description: A fairly broad definition of a vehicle. Any vehicle with four wheels, roughly the size of a car (designed to
+    carry up to 6 people or so).
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/810-05-car
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: stop_marking
+  class_id: '75'
+  uuid: 8723980d-3c83-5971-92e6-30bfb7452999
+  name: STOP Marking
+  description: STOP word painted on the road.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/862-74-stop-marking
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: mod_bit
+  class_id: '76'
+  uuid: 87437e20-d9f5-57e1-8b87-4a9c81ec3b65
+  name: Mod-Bit
+  description: 'Modified Bitumen Roof Materials: A roof system comprised of heat-sealed asphalt-based roofing membrane rolls.'
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1309-148-modified-bitumen-mod-bit
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: turret
+  class_id: '77'
+  uuid: 89582082-e5b8-5853-bc94-3a0392cab98a
+  name: Turret
+  description: A small tower that projects vertically from the wall of a building. Can have a circular top with crenelations,
+    a pointed roof, or other kind of apex.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/832-37-turret-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_material
+  class_id: '78'
+  uuid: 89c7d478-58de-56bd-96d2-e71e27a36905
+  name: Roof material
+  description: Roof material
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: roof_debris
+  class_id: '79'
+  uuid: 8ab218a7-8173-5f1e-a5cb-bb2cd386a73e
+  name: Roof Debris
+  description: Piles of leaves collected on any type of roof.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1327-199-roof-debris
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id026
+- id: roof_patching
+  class_id: '80'
+  uuid: 8b30838b-af41-5d1d-bdbd-29e682fe3b00
+  name: Roof Patching
+  description: A repaired or replaced section of a roof.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1394-214-roof-patching
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: tree_overhang
+  class_id: '81'
+  uuid: 8e9448bd-4669-5f46-b8f0-840fee25c34c
+  name: Tree Overhang
+  description: An area with vegetation (typically trees) above the roof of a building.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_overhang
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/934-53-tree-overhang
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id002
+- id: building_lifecycle
+  class_id: '82'
+  uuid: 91987430-6739-5e16-b92f-b830dd7d52a6
+  name: Building lifecycle
+  description: A class that captures the full lifecycle of a building, from construction through to damage
+  pack: building_structures
+  packs:
+  - building_structures
+  - damage
+  - damage_classifications
+  - damage_non_postcat
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: jerkinhead
+  class_id: '83'
+  uuid: 924afbab-aae6-5c26-92e8-9173e4320495
+  name: Jerkinhead
+  description: A jerkinhead looks like a tiny hip at the end of a gable roof.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1347-243-jerkinhead
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: block_character
+  class_id: '84'
+  uuid: 93f172b5-c544-538f-93dc-8129fe77e0d4
+  name: Block Character
+  description: A letter, word, or numeric message on a roadway providing navigation instruction.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/860-123-block-character
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: active_ponding
+  class_id: '85'
+  uuid: 94944057-968c-5df3-828b-285091b7e266
+  name: Active Ponding
+  description: Pooling of water on flat roofs.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1395-219-active-ponding
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: asphalt
+  class_id: '86'
+  uuid: 97a1f8a8-7cf2-4e81-82b4-753ee225d9ed
+  name: Asphalt
+  description: Black asphalt road surfaces, driveways, car parks, etc.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/821-15-asphalt
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: worn_shingles
+  class_id: '87'
+  uuid: 97a6f930-82ae-55f2-b856-635e2250af29
+  name: Worn Shingles
+  description: Granular loss is when asphalt shingles lose their protective granules.
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1365-277-worn-shingles
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id027
+- id: duct
+  class_id: '88'
+  uuid: 9992c50b-59cb-57dd-90ee-9b5dfac7d3f5
+  name: Duct
+  description: Ducts are used to move air throughout a building
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1329-201-duct
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: fire_pit
+  class_id: '89'
+  uuid: 9f5a766e-a1ab-59ff-9b34-f127d6a717ef
+  name: Fire Pit
+  description: Small pit or ring on the ground used to contain fire.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1332-204-fire-pit
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: wood_shake
+  class_id: '90'
+  uuid: 9fc4c92e-4405-573e-bce6-102b74ab89a3
+  name: Wood Shake
+  description: 'Wood Shake or Shingle Roof Materials: A roof covering made from wedge-shaped cut and processed tree material.'
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1312-152-wood-shake
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: vegetation_debris_overhang
+  class_id: '91'
+  uuid: a0471613-1dfa-5936-960e-f128c083001b
+  name: Vegetation Debris Overhang
+  description: Parts of a roof covered with any natural debris as a result of storms, flooding, or other reasons where vegetation
+    is uprooted or damaged.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - vegetation
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: construction_site
+  class_id: '92'
+  uuid: a2a81381-13c6-57dc-a967-af696e45f6c7
+  name: Construction Site
+  description: An area showing signs of either active or stalled construction, at any phase - cleared ground, excavation works,
+    foundations/slab down, frame up, or roof rafters. Residential and commercial construction is included, as is minor repair
+    work, presence of construction vehicles, and similar visual clues to construction work.
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/809-04-construction-site
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: building_(deprecated)
+  class_id: '93'
+  uuid: a2e4ae39-8a61-5515-9d18-8900aa6e6072
+  name: Building (Deprecated)
+  description: A shelter comprising a partially or totally enclosed space, erected by means of a planned process of forming
+    and combining materials.
+  pack: building
+  packs:
+  - building
+  - building_char
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/892-119-building
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: block_symbol
+  class_id: '94'
+  uuid: a4d3705f-1a20-5322-8fc6-687c01cebdc8
+  name: Block Symbol
+  description: Indicators on a roadway such as route and speed, zebra crossing for pedestrians, triangular or checkered marks
+    for speed breakers, and painted figures like a picture of a bicycle, animal, or car.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/859-122-block-symbol
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: very_low_vegetation_(<0.5m)
+  class_id: '95'
+  uuid: a7d921b7-393c-4121-b317-e9cda3e4c19b
+  name: Very Low Vegetation (<0.5m)
+  description: Very Low Vegetation (<0.5m)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: null
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: painted_lane
+  class_id: '96'
+  uuid: aaf425d3-74b3-5efe-8e50-dc3f902ed431
+  name: Painted Lane
+  description: Solid paint band that represents a limited access lane.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/861-124-painted-lane
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: heavy_machinery
+  class_id: '97'
+  uuid: ab2df18b-cdda-5be9-b5ee-a2dac5b4d9a1
+  name: Heavy Machinery
+  description: Heavy Machinery
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1334-207-heavy-machinery
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_with_temporary_repair
+  class_id: '98'
+  uuid: abb1f304-ce01-527b-b799-cbfd07551b2c
+  name: Roof with Temporary Repair
+  description: Any part of a roof with temporary repair work, such as tarpaulin over damaged parts.
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/834-82-roof-with-temporary-repairs
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: hip
+  class_id: '99'
+  uuid: ac0a5f75-d8aa-554c-8a43-cee9684ef9e9
+  name: Hip
+  description: The roof or part of a roof which is made of sloping faces that are rectangles or rhombuses on all sides.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/828-30-hip-roof
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id016
+- id: circular_manhole_covers
+  class_id: '100'
+  uuid: b084f3a7-6bb5-580c-849a-0467e3919a7d
+  name: Circular Manhole Covers
+  description: A round metal disc and ring that serve as a the cover to an access point for a human worker to enter a sewer
+    system.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - utilities
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/867-111-circular-manhole-cover
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: hard_surface
+  class_id: '101'
+  uuid: b0abb555-7936-5829-acee-c33f40e00cf4
+  name: Hard Surface
+  description: Any non-natural solid surfaces, such as concrete, asphalt, tile, sandstone, limestone, metal, glass, brick
+    or clay pavers, but EXCLUDING areas which would be marked as the roof class.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surface_permeability
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/846-117-hard-surface
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: damaged_asphalt
+  class_id: '102'
+  uuid: b1c2f04b-78ca-5dbc-bf9b-74291c1e39f6
+  name: Damaged Asphalt
+  description: Any visible cracking or potholes in asphalt (roads, driveways, car parks etc.), usually caused by degradation
+    over time.
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/864-108-damaged-asphalt
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: residential_tv_antenna_base
+  class_id: '103'
+  uuid: b22e2f48-de58-53be-84ae-d56181f737fe
+  name: Residential TV Antenna Base
+  description: The base of any small antenna for receiving radio-waves, made of thin wires.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_coating
+  class_id: '104'
+  uuid: b2573072-b3a5-5f7c-973f-06b7649665ff
+  name: Roof Coating
+  description: A shiny, protective coating applied to a flat roof.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1344-233-roof-coating
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: silo
+  class_id: '105'
+  uuid: b64ecdb0-6810-5c70-835c-9e2a5f2a4d84
+  name: Silo
+  description: A tall, cylindrical structure used to store grain \u0026 other crops.
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1354-256-silo
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_equipment
+  class_id: '106'
+  uuid: ba7c0d7d-d355-56f0-ab69-2a96720bf7b7
+  name: Roof Equipment
+  description: Metal boxes on a roof used to contain electrical or other elements.
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1339-222-roof-equipment
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: structural_damage_composite
+  class_id: '107'
+  uuid: c0224852-4310-57dd-95fe-42bff1c0a3f0
+  name: Structural Damage Composite
+  description: 'Minimum of Building with Structural Damage and BV_Structural Damage: Min(P(133), P(260))'
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/160-ai-layer-glossary
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: &id029
+  - *id018
+  - *id019
+- id: roof
+  class_id: '108'
+  uuid: c08255a4-ba9f-562b-932c-ff76f2faeeeb
+  name: Roof
+  description: A permanent roof covering a building, that is not designed to serve other functions (such as car parks and
+    rooftop gardens).
+  pack: advanced_roof_cond
+  packs:
+  - advanced_roof_cond
+  - building
+  - building_char
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_char
+  - roof_cond
+  - roof_materials
+  - roof_overhang
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/806-02-roof
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: solar_hot_water
+  class_id: '109'
+  uuid: c1143023-135b-54fd-9a07-8de0ff55de51
+  name: Solar Hot Water
+  description: Rooftop solar hot water units, whether they have a tank, or are made of fabric.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  - solar
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/852-24-solar-hot-water-panel
+  tags:
+  - solar
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: light_pole_base
+  class_id: '110'
+  uuid: c16cd5a7-bddf-5457-93d5-d70bb6d971a7
+  name: Light Pole Base
+  description: The base of any pole which is taller than 2m with a light attached, intended for illumination (whether or not
+    it is also a power pole).
+  pack: poles
+  packs:
+  - poles
+  - postcat_others
+  - utilities
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/833-54-light-pole-base
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: power_line
+  class_id: '111'
+  uuid: c2d289f4-be5a-50f7-a186-12a065e5178a
+  name: Power Line
+  description: Parallel cables that run between power poles or from power poles to buildings.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - utilities
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/822-16-power-line
+  tags:
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: building_damage_by_tree
+  class_id: '112'
+  uuid: c46e75a6-7b3c-5910-9f3f-742dd668025b
+  name: Building Damage by Tree
+  description: A building that a tree has fallen on and penetrated one or more external protective layers.
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1262-137-damage-by-tree
+  tags:
+  - building
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: residential_chimney
+  class_id: '113'
+  uuid: c54e38d6-866f-592c-bb9c-c68044ed43c9
+  name: Residential Chimney
+  description: Chimney/vent intended for removing burnt gases and smoke from a residential building.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/854-21-chimneys
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id028
+- id: translucent_roofing
+  class_id: '114'
+  uuid: c67497c5-76af-5cd2-a5c7-473cca0f6597
+  name: Translucent Roofing
+  description: Any glass or plastic structure in the roof of a permanent building designed to let in light, that will keep
+    the occupants dry.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/855-25-translucent-roofing
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: pipe
+  class_id: '115'
+  uuid: c81ff488-2693-5812-89d6-1b9e7950b308
+  name: Pipe
+  description: Pipe on a roof used as a conduit for liquids.
+  pack: commercial_roof_objects
+  packs:
+  - commercial_roof_objects
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1337-217-pipe
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: tennis_court
+  class_id: '116'
+  uuid: ca05232f-96db-5aa7-a3a0-f5aa4be12153
+  name: Tennis Court
+  description: Any surface intended for playing tennis on, with the relevant line markings.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/820-19-tennis-court
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: dormer_window
+  class_id: '117'
+  uuid: cd15ea0b-a0f6-58b6-9a63-480654ff506c
+  name: Dormer Window
+  description: A vertical window that protrudes from the middle of a single sloped roof panel.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_char
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/853-114-dormer-window
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: significantly_stained_pavement
+  class_id: '118'
+  uuid: cd2e38aa-fc98-5bd4-b83e-0f614b48e334
+  name: Significantly Stained Pavement
+  description: Puddles of stagnant water and oil stains on pavement.
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1370-284-significantly-stained-pavement
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: leaf_off_vegetation
+  class_id: '119'
+  uuid: cd47dfd1-2c24-543c-89fd-7677b2cc100b
+  name: Leaf-off Vegetation
+  description: Trees and other vegetation without leaves due to any cause - seasonal (for deciduous trees) ,disease, death,
+    fire or storm.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/850-105-leaf-off-vegetation
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: slate
+  class_id: '120'
+  uuid: cdc50dcc-e522-5361-8f02-4e30673311bb
+  name: Slate
+  description: Natural stone roof shingles on a pitched roof.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_materials
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1342-228-slate
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: tile_or_shingle_staining
+  class_id: '121'
+  uuid: cfa8951a-4c29-54de-ae98-e5f804c305e3
+  name: Tile or Shingle Staining
+  description: A pitch roof with discoloured shingles or tiles.
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/841-85-tile-or-shingle-staining
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id024
+- id: wooden_decking
+  class_id: '122'
+  uuid: d24c3212-e089-5b0b-a5f8-58d7e1da0a0d
+  name: Wooden Decking
+  description: Unpainted wooden boards designed to be walked on (decks, boardwalks, jetties and wharfs, etc.).
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/865-113-wooden-decking
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: tyres
+  class_id: '123'
+  uuid: d997550f-5630-5d07-aa07-13182e7caae5
+  name: Tyres
+  description: Stockpiled or discarded vehicle tyres.
+  pack: debris
+  packs:
+  - debris
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/849-112-discarded-tyres
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: grain_bin
+  class_id: '124'
+  uuid: dc834996-1c8f-5d0a-a215-2fc0bf9260a5
+  name: Grain Bin
+  description: Cylinder-shaped metal structures used to store grain.
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1333-206-grain-bin
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: natural_(hard)
+  class_id: '125'
+  uuid: dd1e6ef5-8227-492a-b02f-adcf660d06d0
+  name: Natural (hard)
+  description: Larger rock surfaces (non man-made).
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surfaces
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/813-13-natural-hard
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: missing_roof_tile_or_shingle
+  class_id: '126'
+  uuid: dec855e2-ae6f-56b5-9cbb-f9967ff8ca12
+  name: Missing Roof Tile or Shingle
+  description: Area of exposed underlayment where one or more expected pieces of roof covering are not found.
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/842-126-missing-roof-tile-or-shingle
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: medium_and_high_vegetation_(>2m)
+  class_id: '127'
+  uuid: dfd8181b-80c9-4234-9d05-0eef927e3aca
+  name: Medium and High Vegetation (>2m)
+  description: Medium and High Vegetation (>2m)
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: null
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: cracked_pavement
+  class_id: '128'
+  uuid: e125a77b-3790-578a-be5a-9b7223030513
+  name: Cracked Pavement
+  description: The pavement area where the surface starts to split to reveal a gap or fissure. A cracked pavement is the first
+    step before the pavement disintegrates.
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1366-280-cracked-pavement
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: quonset
+  class_id: '129'
+  uuid: e92bc8a2-9fa3-5094-b3b6-2881d94642ab
+  name: Quonset
+  description: Quonset roofs are typically long, curved and built close to the ground.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_shape
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1349-247-quonset
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: woody_vegetation
+  class_id: '130'
+  uuid: eaa83113-44b3-505e-9515-ba8a8d403dd4
+  name: Woody Vegetation
+  description: Tree or shrublike vegetation that develops woody trunks, root balls, or root systems.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1313-153-woody-vegetation
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: nonwooden_construction_material
+  class_id: '131'
+  uuid: ec5542e4-83a7-53c4-ae2f-dc5b534cc1ba
+  name: Nonwooden Construction Material
+  description: Any raw construction materials found on a property made of material other than wood.
+  pack: construction
+  packs:
+  - construction
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1335-212-nonwooden-construction-material
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: a_c_condenser_unit
+  class_id: '132'
+  uuid: ed1ea29d-cd2c-55a9-8737-13018a9bb741
+  name: A/C Condenser Unit
+  description: Any condenser unit for air-conditioning, either residential or commercial.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/856-22-a-c-condenser-unit
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: dumpster
+  class_id: '133'
+  uuid: ef761921-727e-50bb-9f2a-988becf09796
+  name: Dumpster
+  description: Dumpsters are used to store large amounts of waste and debris.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - yard_objects
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1330-202-dumpster
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: low_confidence_roof_condition
+  class_id: '134'
+  uuid: f14c1581-66e6-5cf1-a051-2298ad165d28
+  name: Low confidence roof condition
+  description: Low confidence roof condition
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: arrow
+  class_id: '135'
+  uuid: f2c37940-5fc2-5d2c-94fa-d131f6e200a2
+  name: Arrow
+  description: Arrow-tipped linear directional symbols painted on a roadway to provide navigation instruction.
+  pack: pavement_marking
+  packs:
+  - pavement_marking
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/858-121-arrow
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: roof_ponding
+  class_id: '136'
+  uuid: f41e02b0-adc0-5b46-ac95-8c59aa9fe317
+  name: Roof Ponding
+  description: The staining of a flat roof caused by residual rain water not draining properly.
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/839-83-roof-ponding
+  tags:
+  - roof
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id011
+  - *id012
+  - *id013
+- id: natural_pervious_surface
+  class_id: '137'
+  uuid: f4b78dad-c2c0-5236-8eb1-3266ed468604
+  name: Natural Pervious Surface
+  description: Pervious surfaces are mainly natural surfaces that allow water to percolate through to the area underneath
+    rather than becoming runoff.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - surface_permeability
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/845-116-natural-pervious-surface
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: all_in_vegetation
+  class_id: '138'
+  uuid: f5070c73-66ca-5cb1-9744-2629a27533ce
+  name: All-in Vegetation
+  description: All types of plants in all conditions.
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - vegetation
+  status: alpha
+  help_url: https://help.nearmap.com/kb/articles/1314-154-all-in-vegetation
+  tags:
+  - vegetation
+  - alpha
+  available_in:
+  - ai_features_api
+  fields: []
+- id: zinc_staining
+  class_id: '139'
+  uuid: f55813f9-a39d-571d-9688-8d3f76aa35b9
+  name: Zinc Staining
+  description: A particular pattern on shingle roofs caused by dispersion of metal particles by water from a zinc strip.
+  pack: pilot1
+  packs:
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/844-128-zinc-staining
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: building_pitch
+  class_id: '140'
+  uuid: f5efb75e-22bb-5b53-93f1-892501868627
+  name: Building pitch
+  description: Building pitch
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - building
+  - production
+  available_in:
+  - ai_features_api
+  fields:
+  - *id008
+  - *id009
+  - *id010
+- id: ground_height
+  class_id: '141'
+  uuid: f7628feb-6d70-50ee-bbfd-053b4e685e8f
+  name: Ground height
+  description: Ground height
+  pack: unknown
+  packs:
+  - unknown
+  status: production
+  help_url: null
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: junk_and_wreckage
+  class_id: '142'
+  uuid: f8abc8e3-6af3-5a1d-9a8e-1793419455bb
+  name: Junk and Wreckage
+  description: Any junk or rubbish manufactured by humans, and now discarded from its original use.
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - debris
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/848-106-junk-and-wreckage
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: structural_damage
+  class_id: '143'
+  uuid: f907e625-26b3-59db-a806-d41f62ce1f1b
+  name: Structural Damage
+  description: Any part of a roof with structural damage that could cause water leakage.
+  pack: damage_classifications
+  packs:
+  - damage_classifications
+  - pilot1
+  - postcat
+  - roof_cond
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/838-81-structural-damage
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: *id029
+- id: very_low_vegetation_(<0.5m)_overhang
+  class_id: '144'
+  uuid: fcbb15ea-93e5-587c-8941-246353817741
+  name: Very Low Vegetation (<0.5m) Overhang
+  description: Very Low Vegetation (<0.5m) Overhang
+  pack: postcat_others
+  packs:
+  - postcat_others
+  - roof_overhang
+  status: production
+  help_url: null
+  tags:
+  - vegetation
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: repaired_pavement
+  class_id: '145'
+  uuid: fd050fb5-8008-57ab-a3fc-fb09c4aa7b68
+  name: Repaired Pavement
+  description: A repaired pavement is a patched pavement area with repairs to cracks and potholes, or fixes to other pavement
+    maladies.
+  pack: pavement_cond
+  packs:
+  - pavement_cond
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1368-282-repaired-pavement
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: atmospheric_occlusion___opaque
+  class_id: '146'
+  uuid: fd149017-c3a1-54a2-b6e4-88f5d5ab9c59
+  name: Atmospheric Occlusion - Opaque
+  description: Particles in the air that completely block the view of anything below them.
+  pack: experimental
+  packs:
+  - experimental
+  - postcat
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/870-131-atmospheric-occlusion-opaque
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+- id: greenhouse
+  class_id: '147'
+  uuid: fd6754fb-11eb-5fb3-9971-23a129099970
+  name: Greenhouse
+  description: A greenhouse is a structure designed to create an artificial humid environment that is used to grow plants..
+  pack: building_structures
+  packs:
+  - building_structures
+  - postcat_others
+  status: production
+  help_url: https://help.nearmap.com/kb/articles/1372-298-greenhouse
+  tags:
+  - production
+  available_in:
+  - ai_features_api
+  fields: []
+`;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Auto-load embedded schema
+      loadSchema();
+      
+      // Setup view toggle
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentView = btn.dataset.view;
+          document.getElementById('resultType').textContent = currentView === 'packs' ? 'packs' : 'layers';
+          
+          // Show/hide glossary link - only show for layers view
+          const glossaryLink = document.getElementById('glossaryLink');
+          if (currentView === 'classes') {
+            glossaryLink.style.display = 'block';
+          } else {
+            glossaryLink.style.display = 'none';
+          }
+          
+          performSearch();
+        });
+      });
+      
+      document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+      document.getElementById('backButton').addEventListener('click', goBackToAll);
+    });
+
+    function loadSchema() {
+      try {
+        schema = jsyaml.load(EMBEDDED_SCHEMA);
+        
+        if (!schema || (!schema.ai_classes && !schema.ai_packs)) {
+          throw new Error('No AI layers or packs found in schema');
+        }
+
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('content').classList.remove('hidden');
+        
+        populateFilters();
+        renderResults();
+        setupEventListeners();
+      } catch (error) {
+        document.getElementById('loading').innerHTML = `
+          <div style="color: var(--text-primary);">
+            <p style="font-weight: 700; margin-bottom: 0.5rem;">⚠️ Error Loading Schema</p>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">${error.message}</p>
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 1rem;">
+              Make sure the ai-features-schema.yaml is embedded in the HTML
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    function populateFilters() {
+      // AI Layers filter
+      const layers = (schema.ai_classes || []).sort((a, b) => a.name.localeCompare(b.name));
+      const layerFilter = document.getElementById('layerFilter');
+      layerFilter.innerHTML = '<option value="">All AI Layers</option>';
+      layers.forEach(layer => {
+        const option = document.createElement('option');
+        option.value = layer.id;
+        option.textContent = layer.name;
+        layerFilter.appendChild(option);
+      });
+
+      // AI Packs filter
+      const packs = (schema.ai_packs || []).sort((a, b) => a.name.localeCompare(b.name));
+      const packFilter = document.getElementById('packFilter');
+      packFilter.innerHTML = '<option value="">All AI Packs</option>';
+      packs.forEach(pack => {
+        const option = document.createElement('option');
+        option.value = pack.id;
+        option.textContent = `${pack.name} (${pack.class_count || 0})`;
+        packFilter.appendChild(option);
+      });
+
+      // Tags
+      const tags = new Set();
+      (schema.ai_classes || []).forEach(cls => {
+        (cls.tags || []).forEach(tag => tags.add(tag));
+      });
+      (schema.ai_packs || []).forEach(pack => {
+        (pack.tags || []).forEach(tag => tags.add(tag));
+      });
+      const tagFilter = document.getElementById('tagFilter');
+      tagFilter.innerHTML = '<option value="">All Tags</option>';
+      Array.from(tags).sort().forEach(tag => {
+        const option = document.createElement('option');
+        option.value = tag;
+        option.textContent = tag.replace(/_/g, ' ');
+        tagFilter.appendChild(option);
+      });
+    }
+
+    function setupEventListeners() {
+      const searchBox = document.getElementById('searchBox');
+      const layerFilter = document.getElementById('layerFilter');
+      const packFilter = document.getElementById('packFilter');
+      const tagFilter = document.getElementById('tagFilter');
+
+      searchBox.addEventListener('input', performSearch);
+      layerFilter.addEventListener('change', performSearch);
+      packFilter.addEventListener('change', performSearch);
+      tagFilter.addEventListener('change', performSearch);
+    }
+
+    function performSearch() {
+      const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+      const selectedLayer = document.getElementById('layerFilter').value;
+      const selectedPack = document.getElementById('packFilter').value;
+      const selectedTag = document.getElementById('tagFilter').value;
+
+      let items = currentView === 'classes' ? (schema.ai_classes || []) : (schema.ai_packs || []);
+
+      let filtered = items.filter(item => {
+        const matchesSearch = !searchTerm || 
+          item.name.toLowerCase().includes(searchTerm) ||
+          item.description.toLowerCase().includes(searchTerm) ||
+          item.id.toLowerCase().includes(searchTerm) ||
+          (item.attributes || []).some(attr => attr.toLowerCase().includes(searchTerm)) ||
+          (item.tags || []).some(tag => tag.toLowerCase().includes(searchTerm)) ||
+          (item.classes || []).some(cls => cls.toLowerCase().includes(searchTerm));  // For packs, search class names
+
+        const matchesLayer = !selectedLayer || 
+          (currentView === 'classes' && item.id === selectedLayer);
+
+        const matchesPack = !selectedPack || 
+          (currentView === 'classes' && (item.pack === selectedPack || (item.packs || []).includes(selectedPack))) ||
+          (currentView === 'packs' && item.id === selectedPack);
+
+        const matchesTag = !selectedTag || 
+          (item.tags || []).includes(selectedTag);
+
+        return matchesSearch && matchesLayer && matchesPack && matchesTag;
+      });
+
+      renderResults(filtered);
+    }
+
+    function renderResults(items) {
+      if (!items) {
+        items = currentView === 'classes' ? (schema.ai_classes || []) : (schema.ai_packs || []);
+      }
+
+      const resultsDiv = document.getElementById('results');
+      const countSpan = document.getElementById('resultCount');
+      const packCountSpan = document.getElementById('packCount');
+      const packCountNum = document.getElementById('packCountNum');
+      
+      countSpan.textContent = items.length;
+      
+      // Show pack count when viewing packs
+      if (currentView === 'packs') {
+        packCountSpan.classList.add('hidden');
+      } else {
+        packCountSpan.classList.add('hidden');
+      }
+
+      if (items.length === 0) {
+        resultsDiv.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <p>No ${currentView === 'classes' ? 'layers' : 'packs'} found matching your criteria</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (currentView === 'classes') {
+        resultsDiv.innerHTML = items.map(renderClassCard).join('');
+      } else {
+        resultsDiv.innerHTML = items.map(renderPackCard).join('');
+      }
+    }
+
+    function renderClassCard(cls) {
+      // Get pack info - class can belong to multiple packs
+      const allPacks = (cls.packs || [cls.pack]).map(packId => 
+        (schema.ai_packs || []).find(p => p.id === packId)
+      ).filter(p => p);
+      
+      const tags = cls.tags || [];
+
+      return `
+        <div class="class-card">
+          <div class="class-header">
+            <div class="class-title-group">
+              <h3 class="class-title">${escapeHtml(cls.name)}</h3>
+              <div>
+                <code class="class-id">Class ID: ${escapeHtml(cls.class_id)}</code>
+                ${allPacks.length > 0 ? allPacks.map(pack => 
+                  `<span class="pack-badge" onclick="goToPack('${pack.id}')">📦 ${escapeHtml(pack.name)}</span>`
+                ).join(' ') : ''}
+              </div>
+            </div>
+          </div>
+
+          <p class="class-description">${escapeHtml(cls.description)}</p>
+
+          ${cls.status ? `
+            <div style="margin-bottom: 1rem;">
+              <span style="display: inline-block; padding: 0.25rem 0.75rem; background: ${cls.status === 'production' ? 'var(--pack-green)' : '#FFF3CD'}; color: ${cls.status === 'production' ? 'var(--pack-green-text)' : '#856404'}; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">
+                ${cls.status.toUpperCase()}
+              </span>
+            </div>
+          ` : ''}
+
+          ${tags.length > 0 ? `
+            <div style="margin-bottom: 1rem;">
+              <div class="tags">
+                ${tags.map(tag => `
+                  <span class="tag">${escapeHtml(tag.replace(/_/g, ' '))}</span>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${cls.help_url ? `
+            <a href="${escapeHtml(cls.help_url)}" target="_blank" class="help-link">
+              📖 View Documentation →
+            </a>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function renderPackCard(pack) {
+      const classNames = pack.classes || [];
+      const classCount = pack.class_count || classNames.length;
+      const tags = pack.tags || [];
+      
+      // Get actual layer objects for this pack
+      const packLayers = (schema.ai_classes || []).filter(cls => 
+        cls.pack === pack.id || (cls.packs || []).includes(pack.id)
+      );
+
+      return `
+        <div class="pack-card">
+          <h3 class="pack-title">📦 ${escapeHtml(pack.name)}</h3>
+          <p class="class-description">${escapeHtml(pack.description)}</p>
+
+          ${pack.requires ? `
+            <div style="padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: 6px; margin: 1rem 0; font-size: 0.875rem;">
+              <strong>⚠️ Requires:</strong> ${escapeHtml((schema.ai_packs || []).find(p => p.id === pack.requires)?.name || pack.requires)}
+            </div>
+          ` : ''}
+
+          ${classNames.length > 0 ? `
+            <div style="margin-top: 1rem;">
+              <div class="section-title">Included Layers (${classCount})</div>
+              <div class="pack-classes">
+                ${classNames.slice(0, 20).map(clsName => {
+                  const layer = packLayers.find(l => l.name === clsName);
+                  const layerId = layer ? layer.id : clsName.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+                  return `<span class="class-chip" onclick="goToLayer('${layerId}')">${escapeHtml(clsName)}</span>`;
+                }).join('')}
+                ${classNames.length > 20 ? `<span class="class-chip">... and ${classNames.length - 20} more</span>` : ''}
+              </div>
+            </div>
+          ` : ''}
+
+          ${pack.fields && pack.fields.length > 0 ? `
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--border-color);">
+              <div class="section-title">Related Fields (${pack.fields.length})</div>
+              <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
+                ${pack.fields.map(field => `
+                  <details style="background: var(--bg-secondary); border-left: 3px solid var(--pack-green-text); padding: 0.75rem; border-radius: 6px;">
+                    <summary style="cursor: pointer; font-weight: 700; color: #08112e; font-size: 0.9375rem;">
+                      ${escapeHtml(field.name)} <code style="margin-left: 0.5rem; font-size: 0.75rem; font-weight: normal; background: white; padding: 0.125rem 0.375rem; border-radius: 3px;">${escapeHtml(field.data_type || '')}</code>
+                    </summary>
+                    <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color);">
+                      <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        ${escapeHtml(field.description || '')}
+                      </div>
+                      ${field.locations && field.locations.length > 0 ? `
+                        <div style="font-size: 0.75rem;">
+                          <div style="color: var(--text-muted); font-weight: 600; margin-bottom: 0.375rem;">Available in ${field.locations.length} system${field.locations.length > 1 ? 's' : ''}:</div>
+                          ${field.locations.map(loc => `
+                            <div style="padding: 0.375rem 0.5rem; background: white; border-radius: 4px; margin-bottom: 0.25rem;">
+                              <div style="font-weight: 700; color: var(--nearmap-blue);">${escapeHtml(schema.systems[loc.system]?.name || loc.system)}</div>
+                              ${loc.table ? `<div style="color: var(--text-secondary);">Table.<code>${escapeHtml(loc.table)}</code>.${loc.column ? `<code>${escapeHtml(loc.column)}</code>` : ''}</div>` : ''}
+                              ${loc.field && !loc.table ? `<div style="color: var(--text-secondary);"><code style="font-size: 0.6875rem;">${escapeHtml(loc.field)}</code></div>` : ''}
+                              ${loc.category ? `<div style="color: var(--text-secondary);">${escapeHtml(loc.category)} → ${escapeHtml(loc.variable || '')}</div>` : ''}
+                              ${loc.notes ? `<div style="color: var(--text-muted); font-style: italic; font-size: 0.6875rem;">${escapeHtml(loc.notes)}</div>` : ''}
+                            </div>
+                          `).join('')}
+                        </div>
+                      ` : ''}
+                    </div>
+                  </details>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${tags.length > 0 ? `
+            <div style="margin-top: 1rem;">
+              <div class="tags">
+                ${tags.map(tag => `
+                  <span class="tag">${escapeHtml(tag.replace(/_/g, ' '))}</span>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${pack.help_url ? `
+            <a href="${escapeHtml(pack.help_url)}" target="_blank" class="help-link">
+              📖 View Documentation →
+            </a>
+          ` : ''}
+
+          ${packLayers.length > 0 ? `
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--border-color);">
+              <div class="section-title" style="margin-bottom: 1rem;">Layer Details</div>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                ${packLayers.map(layer => `
+                  <div id="layer-${layer.id}" style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; border-left: 3px solid var(--nearmap-blue);">
+                    <div style="font-weight: 700; color: #08112e; margin-bottom: 0.5rem;">${escapeHtml(layer.name)}</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">${escapeHtml(layer.description)}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">
+                      <code style="background: var(--bg-primary); padding: 0.125rem 0.375rem; border-radius: 3px;">Class ID: ${escapeHtml(layer.class_id)}</code>
+                      ${layer.status ? `<span style="margin-left: 0.5rem; padding: 0.125rem 0.5rem; background: ${layer.status === 'production' ? 'var(--pack-green)' : '#FFF3CD'}; color: ${layer.status === 'production' ? 'var(--pack-green-text)' : '#856404'}; border-radius: 12px; font-weight: 600;">${layer.status.toUpperCase()}</span>` : ''}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function clearAllFilters() {
+      document.getElementById('searchBox').value = '';
+      document.getElementById('layerFilter').value = '';
+      document.getElementById('packFilter').value = '';
+      document.getElementById('tagFilter').value = '';
+      document.getElementById('breadcrumb').classList.add('hidden');
+      renderResults();
+    }
+
+    function goBackToAll() {
+      // Restore previous state
+      currentView = previousState.view;
+      document.getElementById('searchBox').value = previousState.searchTerm;
+      document.getElementById('layerFilter').value = previousState.layerFilter;
+      document.getElementById('packFilter').value = previousState.packFilter;
+      document.getElementById('tagFilter').value = previousState.tagFilter;
+      
+      // Update view button
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.view-btn[data-view="${currentView}"]`).classList.add('active');
+      document.getElementById('resultType').textContent = currentView === 'packs' ? 'packs' : 'layers';
+      
+      // Update glossary link visibility
+      document.getElementById('glossaryLink').style.display = currentView === 'classes' ? 'block' : 'none';
+      
+      // Hide breadcrumb
+      document.getElementById('breadcrumb').classList.add('hidden');
+      
+      // Re-render
+      performSearch();
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function goToPack(packId) {
+      // Save current state before navigating
+      previousState = {
+        view: currentView,
+        searchTerm: document.getElementById('searchBox').value,
+        layerFilter: document.getElementById('layerFilter').value,
+        packFilter: document.getElementById('packFilter').value,
+        tagFilter: document.getElementById('tagFilter').value
+      };
+
+      // Switch to packs view
+      currentView = 'packs';
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.view-btn[data-view="packs"]').classList.add('active');
+      document.getElementById('resultType').textContent = 'packs';
+      document.getElementById('glossaryLink').style.display = 'none';
+      
+      // Clear other filters and set pack filter
+      document.getElementById('layerFilter').value = '';
+      document.getElementById('packFilter').value = packId;
+      document.getElementById('tagFilter').value = '';
+      document.getElementById('searchBox').value = '';
+      
+      performSearch();
+      
+      // Show breadcrumb
+      const pack = (schema.ai_packs || []).find(p => p.id === packId);
+      if (pack) {
+        document.getElementById('breadcrumb').classList.remove('hidden');
+        document.getElementById('breadcrumbText').textContent = pack.name;
+        document.getElementById('backToView').textContent = previousState.view === 'packs' ? 'Packs' : 'Layers';
+      }
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToLayer(layerId) {
+      // Save current state before navigating
+      previousState = {
+        view: currentView,
+        searchTerm: document.getElementById('searchBox').value,
+        layerFilter: document.getElementById('layerFilter').value,
+        packFilter: document.getElementById('packFilter').value,
+        tagFilter: document.getElementById('tagFilter').value
+      };
+
+      // Switch to layers view
+      currentView = 'classes';
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.view-btn[data-view="classes"]').classList.add('active');
+      document.getElementById('resultType').textContent = 'layers';
+      document.getElementById('glossaryLink').style.display = 'block';
+      
+      // Clear other filters and set layer filter
+      document.getElementById('layerFilter').value = layerId;
+      document.getElementById('packFilter').value = '';
+      document.getElementById('tagFilter').value = '';
+      document.getElementById('searchBox').value = '';
+      
+      performSearch();
+      
+      // Show breadcrumb
+      const layer = (schema.ai_classes || []).find(l => l.id === layerId);
+      if (layer) {
+        document.getElementById('breadcrumb').classList.remove('hidden');
+        document.getElementById('breadcrumbText').textContent = layer.name;
+        document.getElementById('backToView').textContent = previousState.view === 'packs' ? 'Packs' : 'Layers';
+      }
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
